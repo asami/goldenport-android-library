@@ -1,6 +1,6 @@
 package org.goldenport.android.traits;
 
-import org.goldenport.android.ActivityTrait;
+import org.goldenport.android.GActivityTrait;
 
 import android.R;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.view.View;
  * @version Apr. 29, 2011
  * @author  ASAMI, Tomoharu
  */
-public class ListViewTrait extends ActivityTrait {
+public class ListViewTrait extends GActivityTrait {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         View list = findViewById(R.id.list);
