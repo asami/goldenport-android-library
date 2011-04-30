@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<project xmlns:ivy="antlib:org.apache.ivy.ant"
+	 name="goldenport-android-library">
+  <target name="resolve" description="--> retrieve dependencies with ivy">
+    <ivy:retrieve />
+  </target>
+</project>
