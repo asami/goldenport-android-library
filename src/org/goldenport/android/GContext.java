@@ -10,7 +10,7 @@ import com.google.inject.Singleton;
  * @version Apr. 29, 2011
  * @author  ASAMI, Tomoharu
  */
-@Singleton
+//@Singleton
 public abstract class GContext {
 	protected final Logger logger = LoggerFactory.getLogger(context_Name());
 

@@ -8,25 +8,18 @@ import android.os.Bundle;
 
 /**
  * @since   Apr. 28, 2011
- * @version Apr. 30, 2011
+ * @version May.  1, 2011
  * @author  ASAMI, Tomoharu
  */
-public abstract class GActivity<T extends GController<?, ?, ?, ?>> extends Activity implements IGActivity {
+public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activity implements IGActivity {
     private CopyOnWriteArrayList<GActivityTrait> _traits = new CopyOnWriteArrayList<GActivityTrait>();
-
-    protected T controller; 
+    protected C controller;
     
     public GActivity() {
-        GFactory factory = GFactory.getFactory();
-        if (factory == null) {
-            factory = new GFactory(module());
-            GFactory.setFactory(factory);
-        }
-        controller = factory.createController(controller_Class());
     }
 
     protected abstract GModule module();
-    protected abstract Class<T> controller_Class();
+    protected abstract Class<C> controller_Class();
 
     public void addTrait(GActivityTrait trait) {
         trait.setActivity(this);
@@ -36,6 +29,12 @@ public abstract class GActivity<T extends GController<?, ?, ?, ?>> extends Activ
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GFactory factory = GFactory.getFactory();
+        if (factory == null) {
+            factory = new GFactory(module());
+            GFactory.setFactory(factory);
+        }
+        controller = factory.createController(controller_Class());
         for (GActivityTrait trait: _traits) {
             trait.onCreate(savedInstanceState);
         }

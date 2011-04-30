@@ -1,5 +1,8 @@
 package org.goldenport.android;
 
+import android.content.Context;
+
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -8,6 +11,10 @@ import com.google.inject.Singleton;
  * @author  ASAMI, Tomoharu
  */
 @Singleton
-public class GErrorModel {
+public class GErrorModel<C extends GContext> {
+    @Inject
+    private Context context;
 
+    @Inject
+    private C gcontext;
 }

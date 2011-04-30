@@ -9,7 +9,7 @@ import com.google.inject.Inject;
  * @version Apr. 30, 2011
  * @author  ASAMI, Tomoharu
  */
-public abstract class GAgent<C extends GContext, E extends GErrorModel, M extends GModel> {
+public abstract class GAgent<C extends GContext, E extends GErrorModel<?>, M extends GModel<?, ?>> {
     @Inject
     protected Context context;
 

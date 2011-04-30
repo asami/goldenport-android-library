@@ -8,7 +8,13 @@
       <exclude module="slf4j-log4j12"/>
       <exclude module="log4j"/>
     </dependency>
+    <dependency org="org.roboguice" name="roboguice" rev="1.1.1">
+      <exclude org="com.google.android"/>
+      <exclude org="com.google.android.maps"/>
+    </dependency>
+    <!-- 
     <dependency org="com.google.inject" name="guice" rev="3.0"/>
+    -->
     <dependency org="org.slf4j" name="slf4j-android" rev="1.6.1-RC1">
       <exclude org="com.google.android"/>
     </dependency>
