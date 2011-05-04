@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World!</string>
     <string name="app_name">Goldenport Android Library</string>
+    <string name="down_title"></string>
+    <string name="network_not_enabled_title"></string>
+    <string name="network_not_enabled_message"></string>
+    <string name="network_unavailable_title"></string>
+    <string name="network_unavailable_message"></string>
+    <string name="location_not_enabled_title"></string>
+    <string name="location_not_enabled_message"></string>
+    <string name="location_unavailable_title"></string>
+    <string name="location_unavailable_message"></string>
+    <string name="network_communication_error_title"></string>
+    <string name="network_communication_error_message"></string>
+    <string name="system_failure_out_of_memory_title"></string>
+    <string name="system_failure_out_of_memory_message"></string>
+    <string name="error_defect_title"></string>
+    <string name="error_defect_message"></string>
+    <string name="application_defect_title"></string>
+    <string name="application_defect_message"></string>
+    <string name="system_storage_unavailable_title"></string>
+    <string name="system_storage_unavailable_message"></string>
+    <string name="defect_not_reach_title"></string>
+    <string name="defect_not_reach_message"></string>
+    <string name="system_action_view_title"></string>
+    <string name="system_action_view_message"></string>
+    <string name="system_phone_call_title"></string>
+    <string name="system_phone_call_message"></string>
 </resources>

@@ -3,12 +3,11 @@ package org.goldenport.android;
 import android.content.Context;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Scope;
 import com.google.inject.Singleton;
 
 /**
  * @since   Apr. 30, 2011
- * @version May.  1, 2011
+ * @version May.  4, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GModule extends AbstractModule {

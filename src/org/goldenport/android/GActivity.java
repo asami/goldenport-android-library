@@ -5,16 +5,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.WebView;
+import android.widget.ListView;
 
 /**
  * @since   Apr. 28, 2011
- * @version May.  1, 2011
+ * @version May.  3, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activity implements IGActivity {
     private CopyOnWriteArrayList<GActivityTrait> _traits = new CopyOnWriteArrayList<GActivityTrait>();
     protected C controller;
-    
+    protected ListView listView;
+    protected WebView webView;
+
     public GActivity() {
     }
 

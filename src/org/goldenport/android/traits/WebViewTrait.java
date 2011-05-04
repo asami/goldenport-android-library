@@ -1,5 +1,7 @@
 package org.goldenport.android.traits;
 
+import java.util.Map;
+
 import org.goldenport.android.GActivityTrait;
 import org.goldenport.android.R;
 
@@ -10,12 +12,12 @@ import com.google.common.base.Function;
 
 /**
  * @since   Apr. 30, 2011
- * @version Apr. 30, 2011
+ * @version May.  3, 2011
  * @author  ASAMI, Tomoharu
  */
 public class WebViewTrait extends GActivityTrait {
   private WebView _wab_view;
-  private Function<Void, Bundle> _bundle_callback;
+  private Function<Void, Bundle> _bundle_function;
 
   public WebViewTrait() {
   }
@@ -32,12 +34,17 @@ public class WebViewTrait extends GActivityTrait {
   }
 
   public GActivityTrait withBundleToTable(Function<Void, Bundle> function) {
-    _bundle_callback = function;
+    _bundle_function = function;
+    return this;
+  }
+
+  public GActivityTrait withMapToTable(Function<Void, Map> function) {
+      //    _bundle_function = function;
     return this;
   }
 
   private String _make_html() {
-    Bundle data = _bundle_callback.apply(null);
+    Bundle data = _bundle_function.apply(null);
     return _make_html_table(data);
   }
 

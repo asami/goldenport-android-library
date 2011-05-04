@@ -1,20 +1,24 @@
 package org.goldenport.android.traits;
 
 import org.goldenport.android.GActivityTrait;
+import org.goldenport.android.R;
 
-import android.R;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.ListView;
 
 /**
  * @since   Apr. 28, 2011
- * @version Apr. 29, 2011
+ * @version May.  3, 2011
  * @author  ASAMI, Tomoharu
  */
 public class ListViewTrait extends GActivityTrait {
+    private ListView _list_view;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        View list = findViewById(R.id.list);
-        String ok = getString(R.string.ok);
+        _list_view = (ListView)findViewById(R.id.g_ListView);
+        if (_list_view == null) {
+            _list_view = (ListView)findViewById(android.R.id.list);
+        }
     }
 }
