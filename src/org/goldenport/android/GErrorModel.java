@@ -12,7 +12,7 @@ import com.google.inject.Singleton;
 
 /**
  * @since   Apr. 30, 2011
- * @version May.  4, 2011
+ * @version May.  5, 2011
  * @author  ASAMI, Tomoharu
  */
 @Singleton
@@ -35,6 +35,12 @@ public class GErrorModel<C extends GContext> {
 
     @Inject
     protected C gcontext;
+
+    private GErrorModel<?> _parent;
+
+    public void setParent(GErrorModel<?> parent) {
+        _parent = parent;
+    }
 
     protected final void log_debug(String message) {
         gcontext.logDebug(message);

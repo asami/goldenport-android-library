@@ -4,16 +4,13 @@ import org.goldenport.android.GContext;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
-import android.os.Message;
-import android.util.Log;
 
 /**
  * @since   May.  4, 2011
- * @version May.  4, 2011
+ * @version May.  5, 2011
  * @author  ASAMI, Tomoharu
  */
-public abstract class SpinnerDialogAsyncTask<Param, Result> extends GAsyncTask<Param, Message> {
+public abstract class SpinnerDialogAsyncTask<Param, Result> extends GAsyncTask<Param, Result> {
     protected final Context context;
     protected final String message;
     private ProgressDialog _dialog;

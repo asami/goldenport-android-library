@@ -6,23 +6,26 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
+import android.widget.Adapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
  * @since   Apr. 28, 2011
- * @version May.  3, 2011
+ * @version May.  5, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activity implements IGActivity {
     private CopyOnWriteArrayList<GActivityTrait> _traits = new CopyOnWriteArrayList<GActivityTrait>();
-    protected C controller;
+    protected GApplication gapplication;
+    protected GFactory gfactory;
+    protected C gcontroller;
     protected ListView listView;
     protected WebView webView;
 
     public GActivity() {
     }
 
-    protected abstract GModule module();
     protected abstract Class<C> controller_Class();
 
     public void addTrait(GActivityTrait trait) {
@@ -33,12 +36,10 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GFactory factory = GFactory.getFactory();
-        if (factory == null) {
-            factory = new GFactory(module());
-            GFactory.setFactory(factory);
-        }
-        controller = factory.createController(controller_Class());
+        gapplication = (GApplication)getApplication();
+        gfactory = gapplication.getFactory();
+        gcontroller = gfactory.createController(controller_Class());
+        gcontroller.init(this);
         for (GActivityTrait trait: _traits) {
             trait.onCreate(savedInstanceState);
         }
@@ -130,5 +131,10 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
         for (GActivityTrait trait: _traits) {
             trait.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    protected final void set_list_adapter(ListAdapter adapter) {
+        if (listView == null) throw new IllegalStateException();
+        listView.setAdapter(adapter);
     }
 }

@@ -502,7 +502,7 @@ public abstract class GBaseAdapter<T> extends BaseAdapter implements OnScrollLis
             @Override
             protected Void do_In_Background(Void[] params) throws Throwable {
                 try {
-                    Thread.sleep(500); // 強制的に更新ボタンを表示するために一旦スリープさせる。
+                    Thread.sleep(500); // force to show update button
                 } catch (InterruptedException e) {
                 }
                 _is_length_fixed = false;
@@ -556,6 +556,8 @@ public abstract class GBaseAdapter<T> extends BaseAdapter implements OnScrollLis
             return new TextView(context);
         } else if (view instanceof TextView) {
             return view;
+//        } else if (view instanceof LinearLayout && XXX)
+//        well setted up LinearLayout can be used immediately.            
         } else {
             LinearLayout ll = new LinearLayout(context);
             ll.addView(view);

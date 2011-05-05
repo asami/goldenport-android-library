@@ -7,7 +7,7 @@ import com.google.inject.Singleton;
 
 /**
  * @since   Apr. 30, 2011
- * @version May.  4, 2011
+ * @version May.  5, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GModule extends AbstractModule {
@@ -30,6 +30,6 @@ public abstract class GModule extends AbstractModule {
     protected abstract Class<? extends GContext> context_Class();
     protected abstract Class<? extends GErrorModel<?>> errormodel_Class();
     protected abstract Class<? extends GModel<?, ?>> model_Class();
-    protected abstract Class<? extends GController<?, ?, ?, ?>> controller_Class();
     protected abstract Class<? extends GAgent<?, ?, ?>> agent_Class();
+    protected abstract Class<? extends GController<?, ?, ?, ?>> controller_Class();
 }

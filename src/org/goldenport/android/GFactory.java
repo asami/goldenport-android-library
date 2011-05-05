@@ -7,19 +7,18 @@ import android.os.Build;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 
 /**
  * @since   Apr. 29, 2011
- * @version May.  2, 2011
+ * @version May.  5, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GFactory {
-    private final GModule _module;
     private final Injector _injector;
     private GPlatform _platform = null;
 
-    public GFactory(GModule module) {
-        _module = module;
+    public GFactory(Module... module) {
         _injector = Guice.createInjector(module);
     }
 
@@ -29,7 +28,11 @@ public class GFactory {
     }
 
     public <T extends GController<?, ?, ?, ?>> T createController(Class<T> klass) {
-        return (T)_injector.getInstance(klass);
+        T c = (T)_injector.getInstance(klass);
+        GContext rc = _injector.getInstance(GContext.class);
+        GErrorModel<?> erm = _injector.getInstance(GErrorModel.class);
+        c.init(rc, erm);
+        return c;
     }
 
     public GPlatform getPlatform() {
