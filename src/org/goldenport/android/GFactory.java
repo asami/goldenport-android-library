@@ -4,6 +4,7 @@ import org.goldenport.android.platforms.Platform4;
 import org.goldenport.android.platforms.Platform5;
 
 import android.os.Build;
+import android.view.View;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -34,6 +35,15 @@ public class GFactory {
     private <T extends GController<?, ?, ?, ?>> T _init(T c) {
         c.inject(_injector);
         return c;
+    }
+
+    public <T extends View> T createView(Class<T> klass) {
+//        try {
+//            return _injector.getInstance(klass);
+//        } catch (RuntimeException e) {
+//            return null;
+//        }
+        return null;
     }
 
     public GPlatform getPlatform() {

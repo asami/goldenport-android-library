@@ -5,8 +5,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ListAdapter;
@@ -72,21 +72,112 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
 */
     private void _inject_views() {
         for (Field f: getClass().getDeclaredFields()) {
-            Log.v("gold", f.getName());
             if (f.isAnnotationPresent(LayoutView.class)) {
-                LayoutView lv = f.getAnnotation(LayoutView.class);
-                int id = lv.value();
-                // XXX use guice to replace mock view.
-                Object view = findViewById(id);
-                try {
-                    f.setAccessible(true);
-                    f.set(this, view);
-                } catch (IllegalArgumentException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
+                _inject_view(f);
+            } else if (f.isAnnotationPresent(ResourceString.class)) {
+                _inject_string(f);
+            } else if (f.isAnnotationPresent(ResourceDrawable.class)) {
+                _inject_drawable(f);
+            } else if (f.isAnnotationPresent(IntentExtra.class)) {
+                _inject_extra(f);
             }
+        }
+    }
+
+    private void _inject_view(Field f) {
+        LayoutView a = f.getAnnotation(LayoutView.class);
+        int id = a.value();
+        Object view = gfactory.createView((Class<View>)f.getType());
+        if (view == null) {
+            view = findViewById(id);
+        }
+        try {
+            f.setAccessible(true);
+            f.set(this, view);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _inject_string(Field f) {
+        ResourceString a = f.getAnnotation(ResourceString.class);
+        int id = a.value();
+        String string = getString(id);
+        Object value = _convert(f.getType(), string);
+        try {
+            f.setAccessible(true);
+            f.set(this, value);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _inject_drawable(Field f) {
+        ResourceDrawable a = f.getAnnotation(ResourceDrawable.class);
+        int id = a.value();
+        Drawable drawable = getResources().getDrawable(id);
+        try {
+            f.setAccessible(true);
+            f.set(this, drawable);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _inject_extra(Field f) {
+        IntentExtra a = f.getAnnotation(IntentExtra.class);
+        String key = a.value();
+        Intent intent = getIntent();
+        Object value = intent.getExtras().get(key);
+        try {
+            f.setAccessible(true);
+            f.set(this, value);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Object _convert(Class<?> type, String string) {
+        if (type == boolean.class) {
+            return Boolean.parseBoolean(string);
+        } else if (type == byte.class) {
+            return Byte.parseByte(string);
+        } else if (type == short.class) {
+            return Short.parseShort(string);
+        } else if (type == int.class) {
+            return Integer.parseInt(string);
+        } else if (type == long.class) {
+            return Long.parseLong(string);
+        } else if (type == float.class) {
+            return Float.parseFloat(string);
+        } else if (type == double.class) {
+            return Double.parseDouble(string);
+        } else if (type == Boolean.class) {
+            return Boolean.parseBoolean(string);
+        } else if (type == Byte.class) {
+            return Byte.parseByte(string);
+        } else if (type == Short.class) {
+            return Short.parseShort(string);
+        } else if (type == Integer.class) {
+            return Integer.parseInt(string);
+        } else if (type == Long.class) {
+            return Long.parseLong(string);
+        } else if (type == Float.class) {
+            return Float.parseFloat(string);
+        } else if (type == Double.class) {
+            return Double.parseDouble(string);
+        } else if (type == String.class) {
+            return string;
+        } else {
+            return string;
         }
     }
 
