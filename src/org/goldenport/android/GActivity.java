@@ -5,14 +5,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.webkit.WebView;
-import android.widget.Adapter;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 
 /**
  * @since   Apr. 28, 2011
- * @version May.  5, 2011
+ * @version May.  7, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activity implements IGActivity {
@@ -20,8 +17,6 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
     protected GApplication gapplication;
     protected GFactory gfactory;
     protected C gcontroller;
-    protected ListView listView;
-    protected WebView webView;
 
     public GActivity() {
     }
@@ -39,7 +34,8 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
         gapplication = (GApplication)getApplication();
         gfactory = gapplication.getFactory();
         gcontroller = gfactory.createController(controller_Class());
-        gcontroller.init(this);
+        gcontroller.setActivity(this);
+        _traits.add(gcontroller);
         for (GActivityTrait trait: _traits) {
             trait.onCreate(savedInstanceState);
         }
@@ -134,7 +130,15 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
     }
 
     protected final void set_list_adapter(ListAdapter adapter) {
-        if (listView == null) throw new IllegalStateException();
-        listView.setAdapter(adapter);
+        // this method can be used after onCreate.
+        for (GActivityTrait trait: _traits) {
+            if (trait.handleSetListAdapter(adapter)) {
+                return;
+            }
+        }
+        throw new RuntimeException(String.format(
+                "(1)ListViewTrait is not weaved." +
+                "(2)ListView does not located in the layout for %s. Check org.goldenport.android.Rid.g_list or android.R.id.list.",
+                getClass().getName()));
     }
 }

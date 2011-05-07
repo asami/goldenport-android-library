@@ -11,7 +11,7 @@ import com.google.inject.Module;
 
 /**
  * @since   Apr. 29, 2011
- * @version May.  5, 2011
+ * @version May.  7, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GFactory {
@@ -24,14 +24,15 @@ public class GFactory {
 
     @SuppressWarnings("unchecked")
     public <T extends GController<?, ?, ?, ?>> T createController() {
-        return (T)_injector.getInstance(GController.class);
+        return _init((T)_injector.getInstance(GController.class));
     }
 
     public <T extends GController<?, ?, ?, ?>> T createController(Class<T> klass) {
-        T c = (T)_injector.getInstance(klass);
-        GContext rc = _injector.getInstance(GContext.class);
-        GErrorModel<?> erm = _injector.getInstance(GErrorModel.class);
-        c.init(rc, erm);
+        return _init((T)_injector.getInstance(klass));
+    }
+
+    private <T extends GController<?, ?, ?, ?>> T _init(T c) {
+        c.inject(_injector);
         return c;
     }
 

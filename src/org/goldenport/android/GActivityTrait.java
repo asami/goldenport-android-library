@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListAdapter;
 
 /**
  * @since   Apr. 28, 2011
@@ -67,6 +68,12 @@ public abstract class GActivityTrait {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
     }
 
+    //
     public void onUpdate() {
+    }
+
+    //
+    public boolean handleSetListAdapter(ListAdapter adapter) {
+        return false;
     }
 }

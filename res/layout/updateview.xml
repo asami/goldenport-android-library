@@ -3,15 +3,15 @@
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     >
-  <TextView android:id="@+id/g_UpdateView_init"
+  <TextView android:id="@+id/g_update_init"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     />
-  <TextView android:id="@+id/g_UpdateView_trigger"
+  <TextView android:id="@+id/g_update_trigger"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     />
-  <TextView android:id="@+id/g_UpdateView_progress"
+  <TextView android:id="@+id/g_update_progress"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     />

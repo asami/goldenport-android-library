@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 /**
  * @since   May.  4, 2011
- * @version May.  4, 2011
+ * @version May.  7, 2011
  * @author  ASAMI, Tomoharu
  */
 public class UpdateView extends LinearLayout {
@@ -29,9 +29,9 @@ public class UpdateView extends LinearLayout {
         setBackgroundColor(Color.WHITE);
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         addView(inflater.inflate(layout, null));
-        _init = findViewById(R.id.g_UpdateView_init);
-        _trigger = findViewById(R.id.g_UpdateView_trigger);
-        _progress = findViewById(R.id.g_UpdateView_progress);
+        _init = findViewById(R.id.g_update_init);
+        _trigger = findViewById(R.id.g_update_trigger);
+        _progress = findViewById(R.id.g_update_progress);
         initState();
     }
 

@@ -3,17 +3,14 @@ package org.goldenport.android;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Inject;
-
 /**
  * @since   Apr. 29, 2011
- * @version May.  5, 2011
+ * @version May.  7, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GContext {
     protected final Logger logger = LoggerFactory.getLogger(context_Name());
 
-    @Inject @Parent
     private GContext _parent = null;
     
     protected String context_Name() {
