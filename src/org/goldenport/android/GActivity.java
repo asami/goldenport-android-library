@@ -1,10 +1,14 @@
 package org.goldenport.android;
 
+import java.lang.reflect.Field;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ListAdapter;
 
 /**
@@ -38,6 +42,51 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
         _traits.add(gcontroller);
         for (GActivityTrait trait: _traits) {
             trait.onCreate(savedInstanceState);
+        }
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        _inject_views();
+    }
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        _inject_views();
+    }
+
+    @Override
+    public void setContentView(View view, LayoutParams params) {
+        super.setContentView(view, params);
+        _inject_views();
+    }
+
+    /*
+    @Override
+    public void addContentView(View view, LayoutParams params) {
+        super.addContentView(view, params);
+        _inject_views();
+    }
+*/
+    private void _inject_views() {
+        for (Field f: getClass().getDeclaredFields()) {
+            Log.v("gold", f.getName());
+            if (f.isAnnotationPresent(LayoutView.class)) {
+                LayoutView lv = f.getAnnotation(LayoutView.class);
+                int id = lv.value();
+                // XXX use guice to replace mock view.
+                Object view = findViewById(id);
+                try {
+                    f.setAccessible(true);
+                    f.set(this, view);
+                } catch (IllegalArgumentException e) {
+                    throw new RuntimeException(e);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
