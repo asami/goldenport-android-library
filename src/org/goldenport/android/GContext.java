@@ -9,10 +9,14 @@ import org.slf4j.LoggerFactory;
  * @author  ASAMI, Tomoharu
  */
 public abstract class GContext {
-    protected final Logger logger = LoggerFactory.getLogger(context_Name());
+    protected final Logger logger = LoggerFactory.getLogger(getLogTag());
 
     private GContext _parent = null;
-    
+
+    public String getLogTag() {
+        return context_Name();
+    }
+
     protected String context_Name() {
         if (_parent == null) return "goldenport"; // XXX
         else return _parent.context_Name();
