@@ -2,3 +2,5 @@
 bin
 gen
 lib
+*.bak
+target

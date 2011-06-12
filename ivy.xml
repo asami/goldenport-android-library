@@ -2,26 +2,32 @@
   <info organisation="org.goldenport.android" module="library"/>
   <dependencies>
     <dependency org="com.google.guava" name="guava" rev="r09"/>
+    <!-- 
     <dependency org="commons-lang" name="commons-lang" rev="2.6"/>
+     -->
     <dependency org="javax.time" name="jsr-310-ri" rev="20100212"/>
     <dependency org="org.hibernate" name="hibernate-validator" rev="4.0.2.GA">
       <exclude module="slf4j-log4j12"/>
       <exclude module="log4j"/>
+      <exclude org="javax.xml.bind" name="jaxb-api"/>
+      <exclude org="javax.xml.stream" name="stax-api"/>
+      <exclude org="javax.activation" name="activation"/>
+      <exclude org="com.sun.xml.bind" name="jaxb-impl"/>
     </dependency>
+    <!-- 
     <dependency org="org.roboguice" name="roboguice" rev="1.1.1">
       <exclude org="com.google.android"/>
       <exclude org="com.google.android.maps"/>
     </dependency>
-    <!-- 
-    <dependency org="com.google.inject" name="guice" rev="3.0"/>
     -->
+    <dependency org="com.google.inject" name="guice" rev="3.0"/>
     <dependency org="org.slf4j" name="slf4j-android" rev="1.6.1-RC1">
       <exclude org="com.google.android"/>
     </dependency>
     <dependency org="org.slf4j" name="jul-to-slf4j" rev="1.5.6"/>
     <dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.5.6"/>
     <dependency org="org.slf4j" name="log4j-over-slf4j" rev="1.5.6"/>
-    <dependency org="org.apache.httpcomponents" name="httpcomponents-core" rev="4.1">
+    <dependency org="org.apache.httpcomponents" name="httpcomponents-core" rev="4.1.1">
       <exclude module="commons-logging"/>
     </dependency>
     <dependency org="org.apache.httpcomponents" name="httpcomponents-client" rev="4.1.1">
@@ -32,5 +38,54 @@
       <exclude module="commons-logging"/>
     </dependency>
     <dependency org="com.google.code.gson" name="gson" rev="1.7.1"/>
+    <!-- 
+    <dependency org="org.springframework.android" name="spring-android-core" rev="1.0.0.M3"/>
+     -->
+    <!--
+    <dependency org="org.springframework" name="simple-xml" rev="2.5.3">
+      <exclude org="stax" name="stax"/>
+      <exclude org="stax" name="stax-api"/>
+      <exclude org="xpp3" name="xpp3"/>
+    </dependency>
+    -->
+    <dependency org="org.springframework.android" name="spring-android-rest-template" rev="1.0.0.M3">
+      <exclude module="commons-logging"/>
+      <exclude org="com.google.android" name="android"/>
+      <exclude org="org.khronos"/>
+      <exclude org="xerces"/>
+      <exclude org="xpp3"/>
+      <exclude org="commons-httpclient"/>
+      <exclude org="stax" name="stax"/>
+      <exclude org="stax" name="stax-api"/>
+      <!-- 
+      <exclude org="com.google.code.android-rome-feed-reader"/>
+      <exclude org=""/>
+      <exclude org=""/>
+      <exclude org=""/>
+       -->
+    </dependency>
+    <!-- 
+    <dependency org="com.google.code.android-rome-feed-reader" name="android-rome-feed-reader" rev="1.0.0-r2">
+      <exclude org="stax" name="stax"/>
+      <exclude org="stax" name="stax-api"/>
+    </dependency>
+    -->
+    <dependency org="org.springframework.android" name="spring-android-auth" rev="1.0.0.M3">
+      <exclude module="commons-logging"/>
+      <exclude org="com.google.android" name="android"/>
+      <exclude org="org.springframework.social" name="spring-social-web"/>
+      <exclude org="stax" name="stax"/>
+      <exclude org="stax" name="stax-api"/>
+    </dependency>
+    <!-- 
+    <dependency org="org.springframework.social" name="spring-social-twitter" rev="1.0.0.M3">
+      <exclude module="commons-logging"/>
+      <exclude org="org.springframework.social" name="spring-social-web"/>
+    </dependency>
+    <dependency org="org.springframework.social" name="spring-social-facebook" rev="1.0.0.M3">
+      <exclude module="commons-logging"/>
+      <exclude org="org.springframework.social" name="spring-social-web"/>
+    </dependency>
+     -->
   </dependencies>
 </ivy-module>
