@@ -13,7 +13,7 @@ import android.os.Parcelable;
 
 /*
  * @since   Jun.  4, 2011
- * @version Jun. 12, 2011
+ * @version Jul. 11, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GAFeed implements Parcelable {
@@ -30,8 +30,8 @@ public class GAFeed implements Parcelable {
     public final Uri icon;
     public final Uri logo;
     public final List<String> extensionElements;
-    public final Map<String, Object> properties;
     public final GASchema schema;
+    public final Map<String, Object> properties;
 
     public GAFeed(
             String id,

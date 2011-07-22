@@ -9,18 +9,19 @@ import java.util.Map;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 
 /*
- * @since   Jun.  7, 2011
- * @version Jul. 11, 2011
+ * @since   Jun. 22, 2011
+ * @version Jul. 23, 2011
  * @author  ASAMI, Tomoharu
  */
-public class GAFeedBuilder extends AbstractEntryBuilder {
+public class GAEntityFeedBuilder<T extends Parcelable> extends AbstractEntryBuilder {
     private String id;
     private GAText title;
     private GAText subtitle;
     private GADateTime updated;
-    private ArrayList<GAEntry> entries;
+    private ArrayList<GAEntityEntry<T>> entries;
     private ArrayList<GACategory> categories;
     private ArrayList<GALink> links;
     private ArrayList<GAPerson> contributors;
@@ -32,15 +33,15 @@ public class GAFeedBuilder extends AbstractEntryBuilder {
     private LinkedHashMap<String, Object> properties;
     private GASchema schema;
 
-    public GAFeedBuilder() {
+    public GAEntityFeedBuilder() {
     }
 
-    public GAFeedBuilder(
+    public GAEntityFeedBuilder(
         String id,
         GAText title,
         GAText subtitle,
         GADateTime updated,
-        List<GAEntry> entries,
+        List<GAEntityEntry<T>> entries,
         List<GACategory> categories,
         List<GALink> links,
         List<GAPerson> contributors,
@@ -69,8 +70,9 @@ public class GAFeedBuilder extends AbstractEntryBuilder {
         this.properties = to_LinkedHashMap(properties);
     }
 
-    public GAFeed build() {
-        return new GAFeed(
+    public GAEntityFeed<T> build() {
+        List<GAEntry> list = new ArrayList<GAEntry>();
+        return new GAEntityFeed<T>(
             id,
             title,
             subtitle,
@@ -88,41 +90,41 @@ public class GAFeedBuilder extends AbstractEntryBuilder {
             properties);
     }
 
-    public GAFeedBuilder withId(String id) {
+    public GAEntityFeedBuilder<T> withId(String id) {
         this.id = id;
         return this;
     }
 
-    public GAFeedBuilder withTitle(String title) {
+    public GAEntityFeedBuilder<T> withTitle(String title) {
         this.title = new GAText(title);
         return this;
     }
 
-    public GAFeedBuilder withSubtitle(String subtitle) {
+    public GAEntityFeedBuilder<T> withSubtitle(String subtitle) {
         this.subtitle = new GAText(subtitle);
         return this;
     }
 
-    public GAFeedBuilder withUpdated(String updated) {
+    public GAEntityFeedBuilder<T> withUpdated(String updated) {
         this.updated = new GADateTime(updated);
         return this;
     }
 
-    public GAFeedBuilder withEntries(List<GAEntry> entries) {
+    public GAEntityFeedBuilder<T> withEntries(List<GAEntityEntry<T>> entries) {
         this.entries = to_ParcelableArrayList(entries);
         return this;
     }
 
-    public GAFeedBuilder withCategories(List<GACategory> categories) {
+    public GAEntityFeedBuilder<T> withCategories(List<GACategory> categories) {
         this.categories = to_ParcelableArrayList(categories);
         return this;
     }
 
-    public GAFeedBuilder withCategories(GACategory... categories) {
+    public GAEntityFeedBuilder<T> withCategories(GACategory... categories) {
         return withCategories(Arrays.asList(categories));
     }
 
-    public GAFeedBuilder withCategoriesByString(List<String> categories) {
+    public GAEntityFeedBuilder<T> withCategoriesByString(List<String> categories) {
         this.categories = new ArrayList<GACategory>();
         for (String c: categories) {
             this.categories.add(new GACategory(c));
@@ -130,69 +132,69 @@ public class GAFeedBuilder extends AbstractEntryBuilder {
         return this;
     }
 
-    public GAFeedBuilder withCategories(String... categories) {
+    public GAEntityFeedBuilder<T> withCategories(String... categories) {
         return withCategoriesByString(Arrays.asList(categories));
     }
 
-    public GAFeedBuilder withLinks(List<GALink> links) {
+    public GAEntityFeedBuilder<T> withLinks(List<GALink> links) {
         this.links = to_ParcelableArrayList(links);
         return this;
     }
 
-    public GAFeedBuilder withLinks(GALink... links) {
+    public GAEntityFeedBuilder<T> withLinks(GALink... links) {
         return withLinks(Arrays.asList(links));
     }
 
-    public GAFeedBuilder withContributors(List<GAPerson> contributors) {
+    public GAEntityFeedBuilder<T> withContributors(List<GAPerson> contributors) {
         this.contributors = to_ParcelableArrayList(contributors);
         return this;
     }
 
-    public GAFeedBuilder withContributors(GAPerson... contributors) {
+    public GAEntityFeedBuilder<T> withContributors(GAPerson... contributors) {
         return withContributors(Arrays.asList(contributors));
     }
 
-    public GAFeedBuilder withGenerator(String generator) {
+    public GAEntityFeedBuilder<T> withGenerator(String generator) {
         this.generator = generator;
         return this;
     }    
 
-    public GAFeedBuilder withRights(String rights) {
+    public GAEntityFeedBuilder<T> withRights(String rights) {
         this.rights = new GAText(rights);
         return this;
     }    
 
-    public GAFeedBuilder withIcon(String icon) {
+    public GAEntityFeedBuilder<T> withIcon(String icon) {
         this.icon = Uri.parse(icon);
         return this;
     }
 
-    public GAFeedBuilder withLogo(String logo) {
+    public GAEntityFeedBuilder<T> withLogo(String logo) {
         this.logo = Uri.parse(logo);
         return this;
     }
 
-    public GAFeedBuilder withExtensionElements(List<String> extensionElements) {
+    public GAEntityFeedBuilder<T> withExtensionElements(List<String> extensionElements) {
         this.extensionElements = extensionElements;
         return this;
     }
 
-    public GAFeedBuilder withExtensionElements(String... extensionElements) {
+    public GAEntityFeedBuilder<T> withExtensionElements(String... extensionElements) {
         this.extensionElements = Arrays.asList(extensionElements);
         return this;
     }
 
-    public GAFeedBuilder withSchema(GASchema schema) {
+    public GAEntityFeedBuilder<T> withSchema(GASchema schema) {
         this.schema = schema;
         return this;
     }
 
-    public GAFeedBuilder withProperties(Map<String, Object> properties) {
+    public GAEntityFeedBuilder<T> withProperties(Map<String, Object> properties) {
         this.properties = to_LinkedHashMap(properties);
         return this;
     }
 
-    public GAFeedBuilder withProperties(Bundle bundle) {
+    public GAEntityFeedBuilder<T> withProperties(Bundle bundle) {
         this.properties = new LinkedHashMap<String, Object>();
         for (String key: bundle.keySet()) {
             properties.put(key, bundle.get(key));
@@ -200,7 +202,7 @@ public class GAFeedBuilder extends AbstractEntryBuilder {
         return this;
     }
 
-    public GAFeedBuilder withProperties(ContentValues values) {
+    public GAEntityFeedBuilder<T> withProperties(ContentValues values) {
         this.properties = new LinkedHashMap<String, Object>();
         // XXX
         return this;

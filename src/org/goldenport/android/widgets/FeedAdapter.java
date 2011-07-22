@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-/**
+/*
  * @since   Jun.  7, 2011
  * @version Jun. 12, 2011
  * @author  ASAMI, Tomoharu

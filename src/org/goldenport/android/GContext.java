@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @since   Apr. 29, 2011
- * @version May.  7, 2011
+ * @version Jul. 23, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GContext {
@@ -64,5 +64,9 @@ public abstract class GContext {
     public void logVerbose(String message) {
         if (_parent != null) _parent.logVerbose(message);
         else logger.trace(message);
+    }
+
+    public int sp2pxi(int sp) {
+        throw new UnsupportedOperationException();
     }
 }

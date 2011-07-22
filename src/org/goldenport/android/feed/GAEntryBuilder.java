@@ -15,21 +15,21 @@ import android.os.Parcelable;
  * @author  ASAMI, Tomoharu
  */
 public class GAEntryBuilder extends AbstractEntryBuilder {
-    private String id;
-    private GAText title;
-    private GAText summary;
-    private GADateTime published;
-    private GADateTime updated;
-    private ArrayList<GACategory> categories;
-    private ArrayList<GALink> links;
-    private ArrayList<GAPerson> authors;
-    private ArrayList<GAPerson> contributors;
-    private GAText rights;
-    private GAFeed source;
-    private GAContent content;
-    private ArrayList<String> extensionElements;
-    private LinkedHashMap<String, Object> properties;
-    private Bundle contents;
+    protected String id;
+    protected GAText title;
+    protected GAText summary;
+    protected GADateTime published;
+    protected GADateTime updated;
+    protected ArrayList<GACategory> categories;
+    protected ArrayList<GALink> links;
+    protected ArrayList<GAPerson> authors;
+    protected ArrayList<GAPerson> contributors;
+    protected GAText rights;
+    protected GAFeed source;
+    protected GAContent content;
+    protected ArrayList<String> extensionElements;
+    protected LinkedHashMap<String, Object> properties;
+    protected Bundle contents;
 
     public GAEntryBuilder() {
     }
@@ -183,85 +183,85 @@ public class GAEntryBuilder extends AbstractEntryBuilder {
     public void setValue(String key, Object value) {
         if ("id".equals(key)) {
             id = to_string(value);
-            _put_string(key, id);
+            put_string(key, id);
         } else if ("title".equals(key)) {
             title = to_text(value);
-            _put_parcelable(key, title);
+            put_parcelable(key, title);
         } else if ("summary".equals(key)) {
             summary = to_text(value);
-            _put_parcelable(key, summary);
+            put_parcelable(key, summary);
         } else if ("published".equals(key)) {
             published = to_datetime(value);
-            _put_parcelable(key, published);
+            put_parcelable(key, published);
         } else if ("updated".equals(key)) {
             updated = to_datetime(value);
-            _put_parcelable(key, updated);
+            put_parcelable(key, updated);
         } else if ("category".equals(key)) {
             categories = to_category_list(value);
-            _put_parcelable_list(key, categories);
+            put_parcelable_list(key, categories);
         } else if ("categories".equals(key)) {
             categories = to_category_list(value);
-            _put_parcelable_list(key, categories);
+            put_parcelable_list(key, categories);
         } else if ("link".equals(key)) {
             links = to_link_list(value);
-            _put_parcelable_list(key, links);
+            put_parcelable_list(key, links);
         } else if ("links".equals(key)) {
             links = to_link_list(value);
-            _put_parcelable_list(key, links);
+            put_parcelable_list(key, links);
         } else if ("author".equals(key)) {
             authors = to_person_list(value);
-            _put_parcelable_list(key, authors);
+            put_parcelable_list(key, authors);
         } else if ("authors".equals(key)) {
             authors = to_person_list(value);
-            _put_parcelable_list(key, authors);
+            put_parcelable_list(key, authors);
         } else if ("contributor".equals(key)) {
             contributors = to_person_list(value);
-            _put_parcelable(key, title);
+            put_parcelable(key, title);
         } else if ("contributors".equals(key)) {
             contributors = to_person_list(value);
-            _put_parcelable(key, title);
+            put_parcelable(key, title);
         } else if ("rights".equals(key)) {
             rights = to_text(value);
-            _put_parcelable(key, rights);
+            put_parcelable(key, rights);
         } else if ("source".equals(key)) {
             source = to_source(value);
-            _put_parcelable(key, source);
+            put_parcelable(key, source);
         } else if ("content".equals(key)) {
             content = to_content(value);
-            _put_parcelable(key, title);
+            put_parcelable(key, title);
         } else if ("contents".equals(key)) {
             content = to_content(value);
-            _put_parcelable(key, title);
+            put_parcelable(key, title);
         } else if ("extensionElements".equals(key)) {
             extensionElements = to_string_list(value);
-            _put_string_list(key, extensionElements);
+            put_string_list(key, extensionElements);
         } else {
-            _put_string(key, to_string(value)); // XXX
+            put_string(key, to_string(value)); // XXX
         }
     }
 
-    private void _put_parcelable_list(String key, ArrayList<? extends Parcelable> value) {
+    protected final void put_parcelable_list(String key, ArrayList<? extends Parcelable> value) {
         if (contents == null) {
             contents = new Bundle();
         }
         contents.putParcelableArrayList(key, value);
     }
 
-    private void _put_parcelable(String key, Parcelable value) {
+    protected final void put_parcelable(String key, Parcelable value) {
         if (contents == null) {
             contents = new Bundle();
         }
         contents.putParcelable(key, value);        
     }
 
-    private void _put_string(String key, String value) {
+    protected final void put_string(String key, String value) {
         if (contents == null) {
             contents = new Bundle();
         }
         contents.putString(key, value);
     }
 
-    private void _put_string_list(String key, ArrayList<String> value) {
+    protected final void put_string_list(String key, ArrayList<String> value) {
         if (contents == null) {
             contents = new Bundle();
         }

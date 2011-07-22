@@ -2,18 +2,34 @@ package org.goldenport.android;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
+import android.view.LayoutInflater;
+import android.widget.FrameLayout;
 
 import com.google.inject.Singleton;
 
 /**
  * @since   Jun.  7, 2011
- * @version Jun.  7, 2011
+ * @version Jun. 13, 2011
  * @author  ASAMI, Tomoharu
  */
 @Singleton
-public class GView extends View {
+public abstract class GView extends FrameLayout {
+    protected final LayoutInflater inflator;
+
+    protected GView(Context context) {
+        this(context, null);
+    }
+
     public GView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        inflator = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        int lid = get_Layout_Id();
+        if (lid != -1) {
+            addView(inflator.inflate(lid, null));
+        }
+    }
+
+    protected int get_Layout_Id() {
+        return -1;
     }
 }

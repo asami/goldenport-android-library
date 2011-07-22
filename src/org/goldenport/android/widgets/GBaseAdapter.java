@@ -23,9 +23,10 @@ import android.widget.TextView;
 
 /**
  * @since   May.  2, 2011
- * @version May.  4, 2011
+ * @version Jun. 14, 2011
  * @author  ASAMI, Tomoharu
  */
+// XXX most functionality should move BeanSequenceAdapter.
 public abstract class GBaseAdapter<T> extends BaseAdapter implements OnScrollListener {
     protected final Context context;
     protected Throwable _exception;

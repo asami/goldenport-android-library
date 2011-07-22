@@ -13,12 +13,13 @@ import android.widget.ListAdapter;
 
 /**
  * @since   Apr. 28, 2011
- * @version May.  7, 2011
+ * @version Jun. 17, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activity implements IGActivity {
     private CopyOnWriteArrayList<GActivityTrait> _traits = new CopyOnWriteArrayList<GActivityTrait>();
     protected GApplication gapplication;
+    protected GContext gcontext;
     protected GFactory gfactory;
     protected C gcontroller;
 
