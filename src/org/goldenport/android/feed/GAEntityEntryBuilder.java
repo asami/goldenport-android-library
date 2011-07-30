@@ -1,17 +1,13 @@
 package org.goldenport.android.feed;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.os.Bundle;
 import android.os.Parcelable;
 
 /*
  * @since   Jul. 23, 2011
- * @version Jul. 23, 2011
+ * @version Jul. 26, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GAEntityEntryBuilder<T extends Parcelable> extends GAEntryBuilder {
@@ -50,5 +46,10 @@ public class GAEntityEntryBuilder<T extends Parcelable> extends GAEntryBuilder {
                 extensionElements,
                 to_LinkedHashMap(properties),
                 entity);
+    }
+
+    public GAEntityEntryBuilder<T> withEntity(T entity) {
+        this.entity = entity;
+        return this;
     }
 }

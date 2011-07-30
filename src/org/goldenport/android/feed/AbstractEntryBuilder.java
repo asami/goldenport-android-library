@@ -90,7 +90,7 @@ public abstract class AbstractEntryBuilder {
         if (list instanceof ArrayList<?>) {
             return (ArrayList<T>)list;
         } else {
-            throw new UnsupportedOperationException();
+            return new ArrayList<T>(list);
         }
     }
 

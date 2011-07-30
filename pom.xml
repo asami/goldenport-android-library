@@ -5,7 +5,8 @@
 	<groupId>org.goldenport</groupId>
 	<artifactId>g4</artifactId>
 	<version>0.1-SNAPSHOT</version>
-	<packaging>apk</packaging>
+<!--	<packaging>apk</packaging> -->
+	<packaging>jar</packaging>
 	<name>g4</name>
 	<url>http://www.asamioffice.com</url> 
 	<organization>
@@ -32,6 +33,7 @@
 		<sourceDirectory>src</sourceDirectory>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
+		  <!-- 
 			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>maven-android-plugin</artifactId>
@@ -48,6 +50,7 @@
 				</configuration>
 				<extensions>true</extensions>
 			</plugin>
+		  -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-plugin-version}</version>
@@ -66,100 +69,96 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>android</artifactId>
-			<version>${android-version}</version>
-			<scope>provided</scope>
+		  <groupId>com.google.android</groupId>
+		  <artifactId>android</artifactId>
+		  <version>${android-version}</version>
+		  <scope>provided</scope>
 		</dependency>
 		<dependency>
 		  <groupId>com.google.android.maps</groupId>
 		  <artifactId>maps</artifactId>
 		  <version>10_r2</version>
 		  <scope>provided</scope>
-		  </dependency>
+		</dependency>
+<!-- 
 		<dependency>
-			<groupId>org.springframework.android</groupId>
-			<artifactId>spring-android-rest-template</artifactId>
-			<version>${spring-android-version}</version>
+		  <groupId>org.springframework.android</groupId>
+		  <artifactId>spring-android-rest-template</artifactId>
+		  <version>${spring-android-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.android</groupId>
-			<artifactId>spring-android-auth</artifactId>
-			<version>${spring-android-version}</version>
+		  <groupId>org.springframework.android</groupId>
+		  <artifactId>spring-android-auth</artifactId>
+		  <version>${spring-android-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-twitter</artifactId>
-			<version>${spring-social-version}</version>
-			<exclusions>
-				<exclusion>
-					<!-- Exclude in favor of Spring Android RestTemplate -->
-					<artifactId>spring-social-web</artifactId>
-					<groupId>org.springframework.social</groupId>
-				</exclusion>
-				<exclusion>
-					<!-- Provided by Android -->
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>
+		  <groupId>org.springframework.social</groupId>
+		  <artifactId>spring-social-twitter</artifactId>
+		  <version>${spring-social-version}</version>
+		  <exclusions>
+		    <exclusion>
+		      /* Exclude in favor of Spring Android RestTemplate */
+		      <artifactId>spring-social-web</artifactId>
+		      <groupId>org.springframework.social</groupId>
+		    </exclusion>
+		    <exclusion>
+		      /* Provided by Android */
+		      <artifactId>commons-logging</artifactId>
+		      <groupId>commons-logging</groupId>
+		    </exclusion>
+		  </exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-facebook</artifactId>
-			<version>${spring-social-version}</version>
-			<exclusions>
-				<exclusion>
-					<!-- Exclude in favor of Spring Android RestTemplate -->
-					<artifactId>spring-social-web</artifactId>
-					<groupId>org.springframework.social</groupId>
-				</exclusion>
-				<exclusion>
-					<!-- Provided by Android -->
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>spring-webmvc</artifactId>
-					<groupId>org.springframework</groupId>
-				</exclusion>
-			</exclusions>
+		  <groupId>org.springframework.social</groupId>
+		  <artifactId>spring-social-facebook</artifactId>
+		  <version>${spring-social-version}</version>
+		  <exclusions>
+		    <exclusion>
+		      /* Exclude in favor of Spring Android RestTemplate */
+		      <artifactId>spring-social-web</artifactId>
+		      <groupId>org.springframework.social</groupId>
+		    </exclusion>
+		    <exclusion>
+		      /* Provided by Android */
+		      <artifactId>commons-logging</artifactId>
+		      <groupId>commons-logging</groupId>
+		    </exclusion>
+		    <exclusion>
+		      <artifactId>spring-webmvc</artifactId>
+		      <groupId>org.springframework</groupId>
+		    </exclusion>
+		  </exclusions>
 		</dependency>
 		<dependency>
-			<!-- Using Jackson for JSON marshaling -->
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${jackson-version}</version>
+		  /* Using Jackson for JSON marshaling */
+		  <groupId>org.codehaus.jackson</groupId>
+		  <artifactId>jackson-mapper-asl</artifactId>
+		  <version>${jackson-version}</version>
 		</dependency>
 		<dependency>
-			<!-- Using Simple for XML marshaling -->
-			<groupId>org.simpleframework</groupId>
-			<artifactId>simple-xml</artifactId>
-			<version>${simple-version}</version>
-			<exclusions>
-				<!-- StAX is not available on Android -->
- 				<exclusion>
-					<artifactId>stax</artifactId>
-					<groupId>stax</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>stax-api</artifactId>
-					<groupId>stax</groupId>
-				</exclusion>
-				<!-- Provided by Android -->
-				<exclusion>
-					<artifactId>xpp3</artifactId>
-					<groupId>xpp3</groupId>
-				</exclusion>
-			</exclusions>
+		  /* Using Simple for XML marshaling */
+		  <groupId>org.simpleframework</groupId>
+		  <artifactId>simple-xml</artifactId>
+		  <version>${simple-version}</version>
+		  <exclusions>
+		    /* StAX is not available on Android */
+		    <exclusion>
+		      <artifactId>stax</artifactId>
+		      <groupId>stax</groupId>
+		    </exclusion>
+		    <exclusion>
+		      <artifactId>stax-api</artifactId>
+		      <groupId>stax</groupId>
+		    </exclusion>
+		    /* Provided by Android */
+		    <exclusion>
+		      <artifactId>xpp3</artifactId>
+		      <groupId>xpp3</groupId>
+		    </exclusion>
+		  </exclusions>
 		</dependency>
-		<dependency>
-			<!-- Using ROME for RSS and ATOM feeds -->
-			<groupId>com.google.code.android-rome-feed-reader</groupId>
-			<artifactId>android-rome-feed-reader</artifactId>
-			<version>${android-rome-version}</version>
-		</dependency>
-		<!--  -->
+ -->
+               <!--  -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -195,17 +194,17 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jul-to-slf4j</artifactId>
-			<version>1.5.6</version>
+			<version>1.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.5.6</version>
+			<version>1.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>log4j-over-slf4j</artifactId>
-			<version>1.5.6</version>
+			<version>1.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -215,6 +214,11 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
+			<version>4.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
 			<version>4.1.1</version>
 		</dependency>
 		<dependency>
@@ -232,6 +236,12 @@
 			<artifactId>gson</artifactId>
 			<version>1.7.1</version>
 		</dependency>
+		<dependency>
+		  <!-- Using ROME for RSS and ATOM feeds -->
+		  <groupId>com.google.code.android-rome-feed-reader</groupId>
+		  <artifactId>android-rome-feed-reader</artifactId>
+		  <version>${android-rome-version}</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>
@@ -246,7 +256,8 @@
 			<name>Android ROME Feed Reader Repository</name>
 			<url>https://android-rome-feed-reader.googlecode.com/svn/maven2/releases</url>
 		</repository>
-		<!-- For testing against latest Spring snapshots -->
+		<!-- 
+		/* For testing against latest Spring snapshots */
 		<repository>
 			<id>org.springframework.maven.snapshot</id>
 			<name>Spring Maven Snapshot Repository</name>
@@ -254,13 +265,14 @@
 			<releases><enabled>false</enabled></releases>
 			<snapshots><enabled>true</enabled></snapshots>
 		</repository>
-		<!-- For developing against latest Spring milestones -->
+		/* For developing against latest Spring milestones */
 		<repository>
 			<id>org.springframework.maven.milestone</id>
 			<name>Spring Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
 			<snapshots><enabled>false</enabled></snapshots>
 		</repository>
+		-->
 	</repositories>
 	
 </project>

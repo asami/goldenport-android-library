@@ -4,20 +4,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.goldenport.feed.GMultiplicity;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
 /*
  * @since   Jun.  4, 2011
- * @version Jun.  6, 2011
+ * @version Jul. 27, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GASchemaField implements Parcelable {
     public final String name;
     public final Class<?> datatype; // XXX GDatatype
-    public final GMultiplicity multiplicity;
+    public final GAMultiplicity multiplicity;
     public final List<GAConstraint> constraints;
     public final List<GAFacet> facets;
     public final Map<String, Object> properties;
@@ -25,7 +23,7 @@ public class GASchemaField implements Parcelable {
     public GASchemaField(
             String name,
             Class<?> datatype,
-            GMultiplicity multiplicity,
+            GAMultiplicity multiplicity,
             List<GAConstraint> constraints,
             List<GAFacet> facets,
             Map<String, Object> properties) {
@@ -51,7 +49,7 @@ public class GASchemaField implements Parcelable {
         return null;
     }
 
-    private GMultiplicity _read_multiplicity(Parcel in) {
+    private GAMultiplicity _read_multiplicity(Parcel in) {
         // TODO Auto-generated method stub
         return null;
     }

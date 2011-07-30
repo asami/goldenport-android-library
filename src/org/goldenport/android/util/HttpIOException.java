@@ -6,13 +6,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 /**
  * @since   May.  3, 2011
- * @version May.  3, 2011
+ * @version Jul. 29, 2011
  * @author  ASAMI, Tomoharu
  */
 public class HttpIOException extends IOException {
@@ -58,6 +59,12 @@ public class HttpIOException extends IOException {
     public HttpIOException(String msg, HttpPost post, int statusCode,
             String phrase, String res) {
         super(msg);
+        _status_code = statusCode;
+        _text = res;
+    }
+
+    public HttpIOException(String msg, HttpPut put, int statusCode,
+            String phrase, String res) {
         _status_code = statusCode;
         _text = res;
     }

@@ -13,7 +13,7 @@ import android.os.Parcelable;
 
 /*
  * @since   Jun. 22, 2011
- * @version Jul. 23, 2011
+ * @version Jul. 26, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GAEntityFeedBuilder<T extends Parcelable> extends AbstractEntryBuilder {
@@ -71,7 +71,6 @@ public class GAEntityFeedBuilder<T extends Parcelable> extends AbstractEntryBuil
     }
 
     public GAEntityFeed<T> build() {
-        List<GAEntry> list = new ArrayList<GAEntry>();
         return new GAEntityFeed<T>(
             id,
             title,
@@ -113,6 +112,24 @@ public class GAEntityFeedBuilder<T extends Parcelable> extends AbstractEntryBuil
     public GAEntityFeedBuilder<T> withEntries(List<GAEntityEntry<T>> entries) {
         this.entries = to_ParcelableArrayList(entries);
         return this;
+    }
+
+    public GAEntityFeedBuilder<T> withEntries(GAEntityEntry<T>... entries) {
+        return withEntries(Arrays.asList(entries));
+    }
+
+    public GAEntityFeedBuilder<T> withEntities(List<T> entities) {
+        ArrayList<GAEntityEntry<T>> list = new ArrayList<GAEntityEntry<T>>();
+        for (T entity: entities) {
+            list.add(new GAEntityEntryBuilder<T>().withEntity(entity).build());
+        }
+        this.entries = list;
+        return this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public GAEntityFeedBuilder<T> withEntities(T... entities) {
+        return withEntities((List<T>)Arrays.asList(entries));
     }
 
     public GAEntityFeedBuilder<T> withCategories(List<GACategory> categories) {
