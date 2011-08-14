@@ -3,6 +3,8 @@ package org.goldenport.android;
 import java.lang.reflect.Field;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.goldenport.android.util.GAsyncTask;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -13,7 +15,7 @@ import android.widget.ListAdapter;
 
 /**
  * @since   Apr. 28, 2011
- * @version Jun. 17, 2011
+ * @version Aug. 13, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activity implements IGActivity {
@@ -26,7 +28,9 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
     public GActivity() {
     }
 
-    protected abstract Class<C> controller_Class();
+    protected Class<C> controller_Class() {
+        return null;
+    }
 
     public void addTrait(GActivityTrait trait) {
         trait.setActivity(this);
@@ -38,7 +42,8 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
         super.onCreate(savedInstanceState);
         gapplication = (GApplication)getApplication();
         gfactory = gapplication.getFactory();
-        gcontroller = gfactory.createController(controller_Class());
+        Class<C> cc = controller_Class();
+        gcontroller = gfactory.createController(cc);
         gcontroller.setActivity(this);
         _traits.add(gcontroller);
         for (GActivityTrait trait: _traits) {
@@ -281,5 +286,95 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
                 "(1)ListViewTrait is not weaved." +
                 "(2)ListView does not located in the layout for %s. Check org.goldenport.android.Rid.g_list or android.R.id.list.",
                 getClass().getName()));
+    }
+
+    protected final void update_view() {
+        if (!update_view_fg()) {
+            update_view_bg();
+        }
+    }
+
+    protected boolean update_view_fg() {
+        if (!update_view_fg_Do()) {
+            return false;
+        }
+        for (GActivityTrait trait: _traits) {
+            if (!trait.updateViewFgDo()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void update_view_bg() {
+        new GAsyncTask<Void, Object[]>(gcontext) {
+            @Override
+            protected void onPreExecute() {
+                Object[] result = new Object[_traits.size() + 1];
+                result[0] = update_view_bg_Do();
+                int i = 1;
+                for (GActivityTrait trait: _traits) {
+                    result[i] = trait.updateViewBgDo();
+                }
+            }
+
+            @Override
+            protected Object[] do_In_Background(Void[] params) throws Throwable {
+                Object[] result = new Object[_traits.size() + 1];
+                try {
+                    result[0] = update_view_bg_Do();
+                } catch (Throwable e) {
+                    result[0] = e;
+                }
+                int i = 1;
+                for (GActivityTrait trait: _traits) {
+                    try {
+                        result[i] = trait.updateViewBgDo();
+                    } catch (Throwable e){
+                        result[i] = e;
+                    }
+                }
+                return result;
+            }
+
+            @Override
+            protected void on_Post_Execute(Object[] result) {
+                if (result[0] instanceof Throwable) {
+                    update_view_bg_Exception((Throwable)result[0]);
+                } else {
+                    update_view_bg_Epilogue(result[0]);
+                }
+                int i = 1;
+                for (GActivityTrait trait: _traits) {
+                    if (result[i] instanceof Throwable) {
+                        trait.updateViewBgException((Throwable)result[i]);
+                    } else {
+                        trait.updateViewBgEpilogue(result[i]);
+                    }
+                }
+            }
+
+            @Override
+            protected void on_Post_Exception(Throwable e) {
+                update_view_bg_Exception(e);
+                for (GActivityTrait trait: _traits) {
+                    trait.updateViewBgException(e);
+                }
+            }
+        };
+    }
+
+    protected boolean update_view_fg_Do() {
+        return true;
+    }
+
+    protected Object update_view_bg_Do() {
+        return null;
+    }
+
+    protected void update_view_bg_Exception(Throwable throwable) {
+    }
+
+    private void update_view_bg_Epilogue(Object object) {
     }
 }

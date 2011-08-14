@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 
 /**
  * @since   Jun. 12, 2011
- * @version Jun. 12, 2011
+ * @version Aug. 13, 2011
  * @author  ASAMI, Tomoharu
  */
 public class FeedView extends GView {
@@ -18,11 +18,9 @@ public class FeedView extends GView {
 
     public FeedView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        // TODO Auto-generated constructor stub
     }
 
     public void setEntry(GAFeed feed) {
-        // TODO Auto-generated method stub
-        
+        throw new UnsupportedOperationException();
     }
 }

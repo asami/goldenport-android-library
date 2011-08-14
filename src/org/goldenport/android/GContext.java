@@ -1,16 +1,16 @@
 package org.goldenport.android;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import android.content.Context;
+import android.util.Log;
 
 /**
  * @since   Apr. 29, 2011
- * @version Jul. 23, 2011
+ * @version Aug. 14, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GContext {
-    protected final Logger logger = LoggerFactory.getLogger(getLogTag());
-
+//    protected final Logger logger = LoggerFactory.getLogger(getLogTag());
+    private Context _context;
     private GContext _parent = null;
 
     public String getLogTag() {
@@ -26,6 +26,59 @@ public abstract class GContext {
         _parent = parent;
     }
 
+    public void setContext(Context context) {
+        _context = context;
+    }
+
+    public Context getContext() {
+        return _context;
+    }
+
+    public String getConfigServerUrl() {
+        return "?";
+    }
+
+    public void logError(String message) {
+        if (_parent != null) _parent.logError(message);
+        else Log.e(getLogTag(), message);
+    }
+
+    public void logError(String message, Throwable e) {
+        if (_parent != null) _parent.logError(message, e);
+        else Log.e(getLogTag(), message, e);
+    }
+
+    public void logWarn(String message) {
+        if (_parent != null) _parent.logWarn(message);
+        else Log.w(getLogTag(), message);
+    }
+
+    public void logWarn(String message, Throwable e) {
+        if (_parent != null) _parent.logWarn(message, e);
+        else Log.w(getLogTag(), message, e);        
+    }
+
+    public void logInfo(String message) {
+        if (_parent != null) _parent.logInfo(message);
+        else Log.i(getLogTag(), message);
+    }
+
+    public void logDebug(String message) {
+        if (_parent != null) _parent.logDebug(message);
+        else Log.d(getLogTag(), message);
+    }
+
+    public void logDebug(String message, Throwable e) {
+        if (_parent != null) _parent.logDebug(message, e);
+        else Log.d(getLogTag(), message, e);
+    }
+
+    public void logVerbose(String message) {
+        if (_parent != null) _parent.logVerbose(message);
+        else Log.v(getLogTag(), message);
+    }
+
+/*
     public void logError(String message) {
         if (_parent != null) _parent.logError(message);
         else logger.error(message);
@@ -65,7 +118,7 @@ public abstract class GContext {
         if (_parent != null) _parent.logVerbose(message);
         else logger.trace(message);
     }
-
+*/
     public int sp2pxi(int sp) {
         throw new UnsupportedOperationException();
     }

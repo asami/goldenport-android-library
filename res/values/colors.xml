@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <!-- 
+    <color name="text_color_main">#FF333333</color>
+    <color name="text_color_sub">#FF666666</color>
+    <color name="text_color_link">#FF007AB6</color>
+    <color name="text_color_hint">#FFB5B5B5</color>
+    <color name="text_color_dialog">#FFFFFFFF</color>
+    <color name="text_color_empty">#FF00B4B4</color>
+    <color name="plate_color_plain">#FFFFFFFF</color>
+    <color name="plate_color_pressed">#FFA9A9A9</color>
+    <color name="plate_color_debug">#FF123456</color>
+    <color name="frame_line">#FFBBBBBB</color>
+    <color name="transparent">#00000000</color>
+    <color name="translucent">#80000000</color>
+    <color name="bg_loading">#FF808080</color>
+    <color name="bg_photo_loading">#FF000000</color>
+ -->
+    <color name="g_background_progress">#FF808080</color>
+    <color name="g_debug1">#FFff0000</color>
+    <color name="g_debug2">#FF00ff00</color>
+    <color name="g_debug3">#FF0000ff</color>
+    <color name="g_debug4">#FFffff00</color>
+    <color name="g_debug5">#FF00ffff</color>
+    <color name="g_debug6">#FFff00ff</color>
+    <color name="g_debug7">#FF456789</color>
+    <color name="g_debug8">#FF345678</color>
+    <color name="g_debug9">#FF234567</color>
+    <color name="g_debug10">#FF123456</color>
+</resources>

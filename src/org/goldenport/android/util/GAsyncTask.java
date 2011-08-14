@@ -4,14 +4,13 @@ import org.goldenport.android.GContext;
 
 import android.os.AsyncTask;
 import android.os.Message;
-import android.util.Log;
 
 /**
  * @since   Mar.  4, 2011
- * @version May.  4, 2011
+ * @version Aug. 12, 2011
  * @author  ASAMI, Tomoharu
  */
-public abstract class GAsyncTask<Param, Result> extends AsyncTask<Param, Void, Message> {
+public abstract class GAsyncTask<Param, Result> extends AsyncTask<Param, Integer, Message> {
     protected final GContext gcontext;
 
     public GAsyncTask(GContext gcontext) {

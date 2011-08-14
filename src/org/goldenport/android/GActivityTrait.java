@@ -8,7 +8,7 @@ import android.widget.ListAdapter;
 
 /**
  * @since   Apr. 28, 2011
- * @version Apr. 30, 2011
+ * @version Aug. 13, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GActivityTrait {
@@ -72,8 +72,23 @@ public abstract class GActivityTrait {
     public void onUpdate() {
     }
 
-    //
+    // XXX
     public boolean handleSetListAdapter(ListAdapter adapter) {
         return false;
+    }
+
+    //
+    public boolean updateViewFgDo() {
+        return true;
+    }
+
+    public Object updateViewBgDo() {
+        return null;
+    }
+
+    public void updateViewBgEpilogue(Object object) {
+    }
+
+    public void updateViewBgException(Throwable throwable) {
     }
 }

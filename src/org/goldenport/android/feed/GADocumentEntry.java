@@ -8,13 +8,13 @@ import android.os.Parcelable;
 
 /*
  * @since   Jul. 20, 2011
- * @version Jul. 23, 2011
+ * @version Aug. 13, 2011
  * @author  ASAMI, Tomoharu
  */
-public class GAEntityEntry<T extends Parcelable> extends GAEntry {
-    public final T entity;
+public class GADocumentEntry<T extends Parcelable> extends GAEntry {
+    public final T document;
 
-    public GAEntityEntry(
+    public GADocumentEntry(
             String id,
             GAText title,
             GAText summary,
@@ -32,29 +32,29 @@ public class GAEntityEntry<T extends Parcelable> extends GAEntry {
             T entity) {
         super(id, title, summary, published, updated, categories, links, authors,
                 contributors, rights, source, content, extensionElements, properties);
-        this.entity = entity;
+        this.document = entity;
     }
 
-    public GAEntityEntry(Parcel in) {
+    public GADocumentEntry(Parcel in) {
         super(in);
-        entity = in.readParcelable(getClass().getClassLoader());
+        document = in.readParcelable(getClass().getClassLoader());
     }
 
     public void writeToParcel(Parcel dest, int flags) {
     }
 
-    public GAEntityEntryBuilder builder() {
-        return new GAEntityEntryBuilder(
+    public GADocumentEntryBuilder builder() {
+        return new GADocumentEntryBuilder(
         );
     }
 
-    public static final Parcelable.Creator<GAEntityEntry<?>> CREATOR = new Parcelable.Creator<GAEntityEntry<?>>() {
-        public GAEntityEntry<?> createFromParcel(Parcel in) {  
-            return new GAEntityEntry(in);
+    public static final Parcelable.Creator<GADocumentEntry<?>> CREATOR = new Parcelable.Creator<GADocumentEntry<?>>() {
+        public GADocumentEntry<?> createFromParcel(Parcel in) {  
+            return new GADocumentEntry(in);
         }
 
-        public GAEntityEntry<?>[] newArray(int size) {  
-            return new GAEntityEntry<?>[size];
+        public GADocumentEntry<?>[] newArray(int size) {  
+            return new GADocumentEntry<?>[size];
         }
     };
 }

@@ -11,18 +11,18 @@ import android.os.Parcelable;
 
 /*
  * @since   Jul. 20, 2011
- * @version Jul. 22, 2011
+ * @version Aug. 13, 2011
  * @author  ASAMI, Tomoharu
  */
-public class GAEntityFeed<T extends Parcelable> extends GAFeed {
-    public final List<GAEntityEntry<T>> entities;
+public class GADocumentFeed<T extends Parcelable> extends GAFeed {
+    public final List<GADocumentEntry<T>> documents;
 
-    public GAEntityFeed(
+    public GADocumentFeed(
             String id,
             GAText title,
             GAText subtitle,
             GADateTime updated,
-            List<GAEntityEntry<T>> entries,
+            List<GADocumentEntry<T>> entries,
             List<GACategory> categories,
             List<GALink> links,
             List<GAPerson> contributors,
@@ -36,7 +36,7 @@ public class GAEntityFeed<T extends Parcelable> extends GAFeed {
         super(id, title, subtitle, updated, to_entries(entries), categories, links,
                 contributors, generator, rights, icon, logo, 
                 extensionElements, schema, properties);
-        this.entities = Collections.unmodifiableList(entries);
+        this.documents = Collections.unmodifiableList(entries);
     }
 
     private static List<GAEntry> to_entries(List<?> entities) {
@@ -47,16 +47,24 @@ public class GAEntityFeed<T extends Parcelable> extends GAFeed {
         return list;
     }
 
-    public GAEntityFeed(Parcel in) {
+    public GADocumentFeed(Parcel in) {
         super(in);
-        List<GAEntityEntry<T>> list = to_entities();
-        entities = Collections.unmodifiableList(list);
+        List<GADocumentEntry<T>> list = to_entities();
+        documents = Collections.unmodifiableList(list);
     }
 
-    private List<GAEntityEntry<T>> to_entities() {
-        List<GAEntityEntry<T>> list = new ArrayList<GAEntityEntry<T>>();
+    private List<GADocumentEntry<T>> to_entities() {
+        List<GADocumentEntry<T>> list = new ArrayList<GADocumentEntry<T>>();
         for (GAEntry entry: entries) {
-            list.add((GAEntityEntry<T>)entry);
+            list.add((GADocumentEntry<T>)entry);
+        }
+        return list;
+    }
+
+    public List<T> getDocuments() {
+        List<T> list = new ArrayList<T>();
+        for (GADocumentEntry<T> entry: documents) {
+            list.add(entry.document);
         }
         return list;
     }
@@ -65,13 +73,13 @@ public class GAEntityFeed<T extends Parcelable> extends GAFeed {
         super.writeToParcel(dest, flags);
     }
 
-    public static final Parcelable.Creator<GAEntityFeed<?>> CREATOR = new Parcelable.Creator<GAEntityFeed<?>>() {  
-        public GAEntityFeed<?> createFromParcel(Parcel in) {
-            return new GAEntityFeed(in);
+    public static final Parcelable.Creator<GADocumentFeed<?>> CREATOR = new Parcelable.Creator<GADocumentFeed<?>>() {  
+        public GADocumentFeed<?> createFromParcel(Parcel in) {
+            return new GADocumentFeed(in);
         }
 
-        public GAEntityFeed<?>[] newArray(int size) {
-            return new GAEntityFeed<?>[size];
+        public GADocumentFeed<?>[] newArray(int size) {
+            return new GADocumentFeed<?>[size];
         }
     };
 }

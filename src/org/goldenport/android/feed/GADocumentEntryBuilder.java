@@ -7,16 +7,16 @@ import android.os.Parcelable;
 
 /*
  * @since   Jul. 23, 2011
- * @version Jul. 26, 2011
+ * @version Aug. 13, 2011
  * @author  ASAMI, Tomoharu
  */
-public class GAEntityEntryBuilder<T extends Parcelable> extends GAEntryBuilder {
+public class GADocumentEntryBuilder<T extends Parcelable> extends GAEntryBuilder {
     private T entity;
 
-    public GAEntityEntryBuilder() {
+    public GADocumentEntryBuilder() {
     }
 
-    public GAEntityEntryBuilder(String id, GAText title, GAText summary,
+    public GADocumentEntryBuilder(String id, GAText title, GAText summary,
             GADateTime published, GADateTime updated, List<GACategory> categories,
             List<GALink> links, List<GAPerson> authors,
             List<GAPerson> contributors, GAText rights, GAFeed source,
@@ -29,8 +29,8 @@ public class GAEntityEntryBuilder<T extends Parcelable> extends GAEntryBuilder {
         this.entity = entity;
     }
 
-    public GAEntityEntry<T> build() {
-        return new GAEntityEntry<T>(
+    public GADocumentEntry<T> build() {
+        return new GADocumentEntry<T>(
                 id,
                 title,
                 summary,
@@ -48,7 +48,7 @@ public class GAEntityEntryBuilder<T extends Parcelable> extends GAEntryBuilder {
                 entity);
     }
 
-    public GAEntityEntryBuilder<T> withEntity(T entity) {
+    public GADocumentEntryBuilder<T> withDocument(T entity) {
         this.entity = entity;
         return this;
     }

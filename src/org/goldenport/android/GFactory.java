@@ -12,7 +12,7 @@ import com.google.inject.Module;
 
 /**
  * @since   Apr. 29, 2011
- * @version May.  7, 2011
+ * @version May. 12, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GFactory {
@@ -23,13 +23,21 @@ public class GFactory {
         _injector = Guice.createInjector(module);
     }
 
+    public <T extends GModel<?, ?>> T createModel() {
+        return (T)_injector.getInstance(GModel.class);
+    }
+
     @SuppressWarnings("unchecked")
     public <T extends GController<?, ?, ?, ?>> T createController() {
         return _init((T)_injector.getInstance(GController.class));
     }
 
     public <T extends GController<?, ?, ?, ?>> T createController(Class<T> klass) {
-        return _init((T)_injector.getInstance(klass));
+        if (klass == null) {
+            return createController();
+        } else {
+            return _init((T)_injector.getInstance(klass));
+        }
     }
 
     private <T extends GController<?, ?, ?, ?>> T _init(T c) {
