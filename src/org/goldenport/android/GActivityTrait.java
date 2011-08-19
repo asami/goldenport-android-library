@@ -8,7 +8,7 @@ import android.widget.ListAdapter;
 
 /**
  * @since   Apr. 28, 2011
- * @version Aug. 13, 2011
+ * @version Aug. 14, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GActivityTrait {
@@ -72,8 +72,10 @@ public abstract class GActivityTrait {
     public void onUpdate() {
     }
 
-    // XXX
-    public boolean handleSetListAdapter(ListAdapter adapter) {
+    public void setContentView() {
+    }
+
+    public boolean setListAdapter(ListAdapter adapter) {
         return false;
     }
 

@@ -18,7 +18,7 @@ public abstract class GContext {
     }
 
     protected String context_Name() {
-        if (_parent == null) return "goldenport"; // XXX
+        if (_parent == null) return getString(R.string.g_config_context_name);
         else return _parent.context_Name();
     }
 
@@ -34,8 +34,12 @@ public abstract class GContext {
         return _context;
     }
 
+    public String getString(int rscid) {
+        return _context.getResources().getString(rscid);
+    }
+
     public String getConfigServerUrl() {
-        return "?";
+        return getString(R.string.g_config_server_url);
     }
 
     public void logError(String message) {

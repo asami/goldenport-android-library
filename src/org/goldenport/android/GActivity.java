@@ -55,18 +55,27 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         _inject_views();
+        for (GActivityTrait trait: _traits) {
+            trait.setContentView();
+        }
     }
 
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
         _inject_views();
+        for (GActivityTrait trait: _traits) {
+            trait.setContentView();
+        }
     }
 
     @Override
     public void setContentView(View view, LayoutParams params) {
         super.setContentView(view, params);
         _inject_views();
+        for (GActivityTrait trait: _traits) {
+            trait.setContentView();
+        }
     }
 
     /*
@@ -278,7 +287,7 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
     protected final void set_list_adapter(ListAdapter adapter) {
         // this method can be used after onCreate.
         for (GActivityTrait trait: _traits) {
-            if (trait.handleSetListAdapter(adapter)) {
+            if (trait.setListAdapter(adapter)) {
                 return;
             }
         }
