@@ -12,36 +12,37 @@ import com.google.inject.Module;
 
 /**
  * @since   Apr. 29, 2011
- * @version May. 12, 2011
+ * @version Aug. 26, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GFactory {
-    private final Injector _injector;
+    protected final Injector injector;
     private GPlatform _platform = null;
 
     public GFactory(Module... module) {
-        _injector = Guice.createInjector(module);
+        injector = Guice.createInjector(module);
     }
 
     public <T extends GModel<?, ?>> T createModel() {
-        return (T)_injector.getInstance(GModel.class);
+        T m = (T)injector.getInstance(GModel.class);
+        return m;
     }
 
     @SuppressWarnings("unchecked")
     public <T extends GController<?, ?, ?, ?>> T createController() {
-        return _init((T)_injector.getInstance(GController.class));
+        return _init((T)injector.getInstance(GController.class));
     }
 
     public <T extends GController<?, ?, ?, ?>> T createController(Class<T> klass) {
         if (klass == null) {
             return createController();
         } else {
-            return _init((T)_injector.getInstance(klass));
+            return _init((T)injector.getInstance(klass));
         }
     }
 
     private <T extends GController<?, ?, ?, ?>> T _init(T c) {
-        c.inject(_injector);
+        c.inject(injector);
         return c;
     }
 

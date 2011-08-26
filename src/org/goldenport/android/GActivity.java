@@ -15,7 +15,7 @@ import android.widget.ListAdapter;
 
 /**
  * @since   Apr. 28, 2011
- * @version Aug. 13, 2011
+ * @version Aug. 26, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activity implements IGActivity {
@@ -24,6 +24,7 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
     protected GContext gcontext;
     protected GFactory gfactory;
     protected C gcontroller;
+    private View _progress_panel;
 
     public GActivity() {
     }
@@ -54,6 +55,7 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
+        _progress_panel = findViewById(R.id.g_progress_panel);
         _inject_views();
         for (GActivityTrait trait: _traits) {
             trait.setContentView();
@@ -226,6 +228,7 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
         for (GActivityTrait trait: _traits) {
             trait.onResume();
         }
+        update_view();
     }
 
     @Override
@@ -361,6 +364,7 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
                         trait.updateViewBgEpilogue(result[i]);
                     }
                 }
+                normal_mode();
             }
 
             @Override
@@ -370,7 +374,7 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
                     trait.updateViewBgException(e);
                 }
             }
-        };
+        }.execute();
     }
 
     protected boolean update_view_fg_Do() {
@@ -385,5 +389,11 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
     }
 
     private void update_view_bg_Epilogue(Object object) {
+    }
+
+    protected void normal_mode() {
+        if (_progress_panel != null) {
+            _progress_panel.setVisibility(View.GONE);
+        }
     }
 }

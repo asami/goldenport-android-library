@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <style name="gListView">
+        <item name="android:background">#FFFFFFFF</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:divider">#ffe0e0e0</item>
+        <item name="android:dividerHeight">2px</item>
+        <item name="android:fillViewport">true</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:fadingEdge">none</item>
+    </style>
+    <style name="gListViewEmpty">
+        <item name="android:background">#FFFFFFFF</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:padding">5sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="gProgressBarPanel">
+        <item name="android:background">@color/g_background_progress</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="gLoadingBackgroundProgressBar">
+      <!-- 
+        <item name="android:indeterminateDrawable">@drawable/progress2</item>
+	-->
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:layout_width">32sp</item>
+        <item name="android:layout_height">32sp</item>
+    </style>
+    <style name="gLoadingMessage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+</resources>

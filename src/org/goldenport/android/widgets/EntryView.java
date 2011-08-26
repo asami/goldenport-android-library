@@ -130,43 +130,35 @@ public class EntryView extends GView {
         }
     }
 
-    protected CharSequence format_Id(String id2) {
-        // TODO Auto-generated method stub
-        return null;
+    protected CharSequence format_Id(String id) {
+        return id;
     }
 
     protected CharSequence format_Title(GAText title) {
-        // TODO Auto-generated method stub
-        return null;
+        return title.text;
     }
 
     protected CharSequence format_Summary(GAText summary) {
-        // TODO Auto-generated method stub
-        return null;
+        return summary.text;
     }
 
     protected CharSequence format_Published(GADateTime published) {
-        // TODO Auto-generated method stub
-        return null;
+        return published.toString();
     }
 
-    protected CharSequence format_Updated(GADateTime updated2) {
-        // TODO Auto-generated method stub
-        return null;
+    protected CharSequence format_Updated(GADateTime updated) {
+        return updated.toString();
     }
 
-    protected CharSequence format_Categories(List<GACategory> categories2) {
-        // TODO Auto-generated method stub
-        return null;
+    protected CharSequence format_Categories(List<GACategory> categories) {
+        return categories.toString(); // XXX
     }
 
     protected CharSequence format_Content_Text(GAContent content) {
-        // TODO Auto-generated method stub
-        return null;
+        return content.toString();
     }
 
     protected CharSequence format_Link_Image(String linkImage) {
-        // TODO Auto-generated method stub
-        return null;
+        return linkImage;
     }
 }

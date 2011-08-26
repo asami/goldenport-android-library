@@ -14,7 +14,7 @@ import android.os.Parcelable;
 
 /*
  * @since   Jun.  4, 2011
- * @version Jun. 12, 2011
+ * @version Aug. 26, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GAEntry implements Parcelable {
@@ -53,15 +53,31 @@ public class GAEntry implements Parcelable {
         this.summary = summary;
         this.published = published;
         this.updated = updated;
-        this.categories = Collections.unmodifiableList(categories);
-        this.links = Collections.unmodifiableList(links);
-        this.authors = Collections.unmodifiableList(authors);
-        this.contributors = Collections.unmodifiableList(contributors);
+        this.categories = to_list(categories);
+        this.links = to_list(links);
+        this.authors = to_list(authors);
+        this.contributors = to_list(contributors);
         this.rights = rights;
         this.source = source;
         this.content = content;
-        this.extensionElements = Collections.unmodifiableList(extensionElements);
-        this.properties = Collections.unmodifiableMap(properties);
+        this.extensionElements = to_list(extensionElements);
+        this.properties = to_map(properties);
+    }
+
+    private <T extends List<?>> T to_list(List<?> list) {
+        if (list == null) {
+            return (T)Collections.emptyList();
+        } else {
+            return (T)Collections.unmodifiableList(list);
+        }
+    }
+
+    private Map<String, Object> to_map(Map<String, Object> map) {
+        if (map == null) {
+            return Collections.emptyMap();
+        } else {
+            return Collections.unmodifiableMap(map);
+        }
     }
 
     @SuppressWarnings("unchecked")

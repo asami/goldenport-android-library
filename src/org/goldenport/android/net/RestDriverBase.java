@@ -173,7 +173,7 @@ public abstract class RestDriverBase {
                         statusCode, phrase, res, url);
                 throw new HttpIOException(msg, get, statusCode, phrase, res);
             }
-            Log.i(_module_name, String.format("GET-OK: %s <= %s", make_log_message(res.toString()), url));
+            Log.i(_module_name, String.format("GET-OK: %s <= %s", make_log_message(res), url));
             return new JSONObject(res);
         } catch (JSONException e) {
             Log.w(_module_name, String.format("GET*JSON: %s <= %s", e.getMessage(), url), e);

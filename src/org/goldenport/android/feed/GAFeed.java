@@ -13,7 +13,7 @@ import android.os.Parcelable;
 
 /*
  * @since   Jun.  4, 2011
- * @version Jul. 11, 2011
+ * @version Aug. 26, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GAFeed implements Parcelable {
@@ -53,16 +53,16 @@ public class GAFeed implements Parcelable {
         this.title = title;
         this.subtitle = subtitle;
         this.updated = updated;
-        this.entries = Collections.unmodifiableList(entries);
-        this.categories = Collections.unmodifiableList(categories);
-        this.links = Collections.unmodifiableList(links);
-        this.contributors = Collections.unmodifiableList(contributors);
+        this.entries = to_list(entries);
+        this.categories = to_list(categories);
+        this.links = to_list(links);
+        this.contributors = to_list(contributors);
         this.generator = generator;
         this.rights = rights;
         this.icon = icon;
         this.logo = logo;
         this.extensionElements = extensionElements;
-        this.properties = Collections.unmodifiableMap(properties);
+        this.properties = to_map(properties);
         this.schema = schema;
     }
 
@@ -72,17 +72,33 @@ public class GAFeed implements Parcelable {
         title = in.readParcelable(loader);
         subtitle = in.readParcelable(loader);
         updated = in.readParcelable(loader);
-        entries = Collections.unmodifiableList(in.readArrayList(loader));
-        categories = Collections.unmodifiableList(in.readArrayList(loader));
-        links = Collections.unmodifiableList(in.readArrayList(loader));
-        contributors = Collections.unmodifiableList(in.readArrayList(loader));
+        entries = to_list(in.readArrayList(loader));
+        categories = to_list(in.readArrayList(loader));
+        links = to_list(in.readArrayList(loader));
+        contributors = to_list(in.readArrayList(loader));
         generator = in.readString();
         rights = in.readParcelable(loader);
         icon = in.readParcelable(loader);
         logo = in.readParcelable(loader);
-        extensionElements = Collections.unmodifiableList(in.readArrayList(loader));
+        extensionElements = to_list(in.readArrayList(loader));
         schema = in.readParcelable(loader);
-        properties = Collections.unmodifiableMap(in.readHashMap(loader));
+        properties = to_map(in.readHashMap(loader));
+    }
+
+    private <T extends List<?>> T to_list(List<?> list) {
+        if (list == null) {
+            return (T)Collections.emptyList();
+        } else {
+            return (T)Collections.unmodifiableList(list);
+        }
+    }
+
+    private Map<String, Object> to_map(Map<String, Object> map) {
+        if (map == null) {
+            return Collections.emptyMap();
+        } else {
+            return Collections.unmodifiableMap(map);
+        }
     }
 
     public int describeContents() {

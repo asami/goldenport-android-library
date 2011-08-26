@@ -12,7 +12,7 @@ import android.os.Parcelable;
 
 /*
  * @since   Jun. 12, 2011
- * @version Jun. 12, 2011
+ * @version Aug. 26, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class AbstractEntryBuilder {
@@ -96,7 +96,9 @@ public abstract class AbstractEntryBuilder {
 
     protected final LinkedHashMap<String, Object> to_LinkedHashMap(
             Map<String, Object> map) {
-        if (map instanceof LinkedHashMap<?, ?>) {
+        if (map == null) {
+            return null;
+        } else if (map instanceof LinkedHashMap<?, ?>) {
             return (LinkedHashMap<String, Object>)map;
         } else {
             return new LinkedHashMap<String, Object>(map);

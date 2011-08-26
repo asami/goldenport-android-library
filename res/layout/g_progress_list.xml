@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	     android:id="@+id/g_list_panel"
+	     android:layout_weight="1"
+	     android:layout_width="fill_parent" android:layout_height="1000px">
+  <Button style="@style/gListViewEmpty"
+	  android:id="@+id/g_list_empty"
+	  android:text="データはありませんでした。"/>
+  <ListView style="@style/gListView"
+	    android:id="@+id/g_list"/>
+  <LinearLayout style="@style/gProgressBarPanel"
+		android:id="@+id/g_progress_panel">
+    <ProgressBar style="@style/gLoadingBackgroundProgressBar"
+		 android:id="@+id/g_progressbar"/>
+    <TextView style="@style/gLoadingMessage"/>
+  </LinearLayout>
+</FrameLayout>
