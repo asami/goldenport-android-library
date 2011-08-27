@@ -150,9 +150,20 @@ public class GAEntry implements Parcelable {
     }
 
     // twitter, image/png    
-    public String getLinkImage() {
-        throw new UnsupportedOperationException();
-        
+    public Uri getLinkImage() {
+        return _get_link("image");
+    }
+
+    private Uri _get_link(String rel) {
+        if (links == null) {
+            return null;
+        }
+        for (GALink link: links) {
+            if (rel.equals(link.rel)) {
+                return link.href;
+            }
+        }
+        return null;
     }
 
     // twitter:geo    

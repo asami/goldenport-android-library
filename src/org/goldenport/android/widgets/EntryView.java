@@ -11,12 +11,13 @@ import org.goldenport.android.feed.GAEntry;
 import org.goldenport.android.feed.GAText;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
  * @since   Jun.  7, 2011
- * @version Jun. 13, 2011
+ * @version Aug. 27, 2011
  * @author  ASAMI, Tomoharu
  */
 public class EntryView extends GView {
@@ -120,8 +121,9 @@ public class EntryView extends GView {
             }
         }
         if (link_image != null) {
-            if (entry.categories != null) {
-                updated.setText(format_Link_Image(entry.getLinkImage()));
+            Uri image = entry.getLinkImage();
+            if (image != null) {
+                updated.setText(format_Link_Image(image));
             }
         }
         if (link_geo != null) {
@@ -158,7 +160,7 @@ public class EntryView extends GView {
         return content.toString();
     }
 
-    protected CharSequence format_Link_Image(String linkImage) {
-        return linkImage;
+    protected CharSequence format_Link_Image(Uri image) {
+        return image.toString();
     }
 }

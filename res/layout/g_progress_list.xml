@@ -2,7 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	     android:id="@+id/g_list_panel"
 	     android:layout_weight="1"
-	     android:layout_width="fill_parent" android:layout_height="1000px">
+	     android:layout_width="fill_parent" android:layout_height="fill_parent">
+  <Button style="@style/gListViewEmpty"
+	  android:id="@+id/g_list_error"
+	  android:text="エラーが発生してデータが取得できませんでした。"/>
   <Button style="@style/gListViewEmpty"
 	  android:id="@+id/g_list_empty"
 	  android:text="データはありませんでした。"/>

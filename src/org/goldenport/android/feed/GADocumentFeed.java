@@ -11,10 +11,10 @@ import android.os.Parcelable;
 
 /*
  * @since   Jul. 20, 2011
- * @version Aug. 13, 2011
+ * @version Aug. 27, 2011
  * @author  ASAMI, Tomoharu
  */
-public class GADocumentFeed<T extends Parcelable> extends GAFeed {
+public class GADocumentFeed<T extends IGADocument> extends GAFeed {
     public final List<GADocumentEntry<T>> documents;
 
     public GADocumentFeed(

@@ -11,7 +11,7 @@ import android.os.Parcelable;
  * @version Aug. 13, 2011
  * @author  ASAMI, Tomoharu
  */
-public class GADocumentEntry<T extends Parcelable> extends GAEntry {
+public class GADocumentEntry<T extends IGADocument> extends GAEntry {
     public final T document;
 
     public GADocumentEntry(

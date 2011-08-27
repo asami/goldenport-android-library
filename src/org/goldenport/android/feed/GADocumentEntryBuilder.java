@@ -7,10 +7,10 @@ import android.os.Parcelable;
 
 /*
  * @since   Jul. 23, 2011
- * @version Aug. 13, 2011
+ * @version Aug. 27, 2011
  * @author  ASAMI, Tomoharu
  */
-public class GADocumentEntryBuilder<T extends Parcelable> extends GAEntryBuilder {
+public class GADocumentEntryBuilder<T extends IGADocument> extends GAEntryBuilder {
     private T entity;
 
     public GADocumentEntryBuilder() {
@@ -50,6 +50,15 @@ public class GADocumentEntryBuilder<T extends Parcelable> extends GAEntryBuilder
 
     public GADocumentEntryBuilder<T> withDocument(T entity) {
         this.entity = entity;
+        this.id = entity.get_entry_id(id);
+        String t = entity.get_entry_title(title == null ? null : title.text);
+        if (t != null) {
+            this.title = new GAText(t);
+        }
+        String s = entity.get_entry_summary(summary == null ? null : summary.text);
+        if (s != null) {
+            this.summary = new GAText(s);
+        }
         return this;
     }
 }

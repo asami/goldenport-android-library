@@ -28,6 +28,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.goldenport.android.util.HttpIOException;
 import org.goldenport.android.util.InvocationTargetIOException;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,7 +37,7 @@ import android.util.Log;
 
 /**
  * @since   Jul. 27, 2011
- * @version Jul. 29, 2011
+ * @version Aug. 27, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class RestDriverBase {
@@ -644,5 +645,17 @@ public abstract class RestDriverBase {
         } finally {
             dhc.getConnectionManager().shutdown();
         }
+    }
+
+    protected final JSONArray get_array(JSONObject json, String key) throws JSONException {
+        if (json == null || json.isNull(key)) {
+            return new JSONArray();
+        } else {
+            return json.getJSONArray(key);
+        }
+    }
+
+    protected String get_content_key() {
+        return "content";
     }
 }

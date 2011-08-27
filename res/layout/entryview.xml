@@ -3,12 +3,6 @@
 	     android:layout_width="fill_parent"
 	     android:layout_height="wrap_content"
 	     >
-  <TextView
-  android:text="OK" 
-  android:background="@color/g_debug1"
-             android:layout_width="fill_parent"
-             android:layout_height="wrap_content"
-             />
   <TextView android:id="@+id/g_entry_id"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
@@ -25,11 +19,11 @@
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     />
-  <TextView android:id="@+id/g_entry_published"
+  <org.goldenport.android.widgets.DateTimeView android:id="@+id/g_entry_published"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     />
-  <TextView android:id="@+id/g_entry_updated"
+  <org.goldenport.android.widgets.DateTimeView android:id="@+id/g_entry_updated"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     />
@@ -61,7 +55,7 @@
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     />
-  <TextView android:id="@+id/g_entry_link_image"
+  <org.goldenport.android.widgets.BitmapView android:id="@+id/g_entry_link_image"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
 	     />

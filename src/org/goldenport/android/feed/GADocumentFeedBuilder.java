@@ -9,14 +9,13 @@ import java.util.Map;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 
 /*
  * @since   Jun. 22, 2011
- * @version Aug. 13, 2011
+ * @version Aug. 27, 2011
  * @author  ASAMI, Tomoharu
  */
-public class GADocumentFeedBuilder<T extends Parcelable> extends AbstractEntryBuilder {
+public class GADocumentFeedBuilder<T extends IGADocument> extends AbstractEntryBuilder {
     private String id;
     private GAText title;
     private GAText subtitle;

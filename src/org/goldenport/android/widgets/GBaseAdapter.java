@@ -29,7 +29,7 @@ public abstract class GBaseAdapter<T> extends BaseAdapter {
     protected IGBaseAdapterListener adapter_listener;
     protected final float density;
     private static final int CHUNK_SIZE = 100;
-    private static final int MARGIN_LENGTH = 10;
+    private static final int MARGIN_LENGTH = 0;
     protected final GContext gcontext;
     protected final GModel<?, ?> model;
     protected final BeanSequenceRepository<T> repository;
