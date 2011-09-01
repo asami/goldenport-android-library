@@ -7,6 +7,8 @@ import org.goldenport.android.util.GAsyncTask;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -15,10 +17,10 @@ import android.widget.ListAdapter;
 
 /**
  * @since   Apr. 28, 2011
- * @version Aug. 26, 2011
+ * @version Aug. 30, 2011
  * @author  ASAMI, Tomoharu
  */
-public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activity implements IGActivity {
+public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activity implements IGActivity, GConstants {
     private CopyOnWriteArrayList<GActivityTrait> _traits = new CopyOnWriteArrayList<GActivityTrait>();
     protected GApplication gapplication;
     protected GContext gcontext;
@@ -50,6 +52,14 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
         for (GActivityTrait trait: _traits) {
             trait.onCreate(savedInstanceState);
         }
+        int layout = get_Layout_id();
+        if (layout != INVALID_LAYOUT_ID) {
+            setContentView(layout);
+        }
+    }
+
+    protected int get_Layout_id() {
+        return INVALID_LAYOUT_ID;
     }
 
     @Override
@@ -95,6 +105,10 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
                 _inject_string(f);
             } else if (f.isAnnotationPresent(ResourceDrawable.class)) {
                 _inject_drawable(f);
+            } else if (f.isAnnotationPresent(ResourceColor.class)) {
+                _inject_color(f);
+            } else if (f.isAnnotationPresent(ResourceColorStateList.class)) {
+                _inject_colorStateList(f);
             } else if (f.isAnnotationPresent(IntentExtra.class)) {
                 _inject_extra(f);
             }
@@ -107,6 +121,9 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
         Object view = gfactory.createView((Class<View>)f.getType());
         if (view == null) {
             view = findViewById(id);
+        }
+        if (view == null) {
+//            throw new RuntimeException("Invalid layout id = 0x" + Integer.toHexString(id));
         }
         try {
             f.setAccessible(true);
@@ -145,6 +162,42 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void _inject_color(Field f) {
+        ResourceDrawable a = f.getAnnotation(ResourceDrawable.class);
+        int id = a.value();
+        try {
+            int color = getResources().getColor(id);
+            f.setAccessible(true);
+            f.set(this, color);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(_invalid_type_message("Color", f),
+                    e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(_invalid_type_message("Color", f),
+                    e);
+        }
+    }
+
+    private void _inject_colorStateList(Field f) {
+        ResourceDrawable a = f.getAnnotation(ResourceDrawable.class);
+        int id = a.value();
+        try {
+            ColorStateList color = getResources().getColorStateList(id);
+            f.setAccessible(true);
+            f.set(this, color);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(_invalid_type_message("ColorStateList", f),
+                    e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(_invalid_type_message("ColorStateList", f),
+                    e);
+        }
+    }
+
+    private String _invalid_type_message(String name, Field f) {
+        return String.format("Invalid type for %s %s: %s", name, f.getName(), f.getType().getName());                    
     }
 
     private void _inject_extra(Field f) {

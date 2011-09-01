@@ -12,7 +12,7 @@ import com.google.inject.Singleton;
 
 /**
  * @since   Apr. 30, 2011
- * @version May.  5, 2011
+ * @version Aug. 30, 2011
  * @author  ASAMI, Tomoharu
  */
 @Singleton
@@ -121,7 +121,7 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_Down_Title() {
-        return get_string(R.string.down_title);
+        return get_string(R.string.g_down_title);
     }
 
     public GIOException networkNotEnabled() {
@@ -134,7 +134,7 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_Down_Network_Not_Enabled_Message() {
-        return get_string(R.string.network_not_enabled_message);
+        return get_string(R.string.g_network_not_enabled_message);
     }
 
     protected String string_code_Network_Not_Enabled() {
@@ -155,7 +155,7 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_Down_Network_Unavailable_Message() {
-        return get_string(R.string.network_unavailable_message);
+        return get_string(R.string.g_network_unavailable_message);
     }
 
     protected String string_code_Network_Unavailable() {
@@ -176,7 +176,7 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_Location_Not_Enabled_Message() {
-        return get_string(R.string.location_not_enabled_message);
+        return get_string(R.string.g_location_not_enabled_message);
     }
 
     protected String string_code_Location_Not_Enabled() {
@@ -193,11 +193,11 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_Location_Unavailable_Title() {
-        return get_string(R.string.location_unavailable_title);
+        return get_string(R.string.g_location_unavailable_title);
     }
 
     protected String string_Location_Unavailable_Message() {
-        return get_string(R.string.location_unavailable_message);
+        return get_string(R.string.g_location_unavailable_message);
     }
 
     protected String string_code_Location_Unavailable() {
@@ -235,11 +235,11 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_Network_Communication_Error_Title() {
-        return get_string(R.string.network_communication_error_title);
+        return get_string(R.string.g_network_communication_error_title);
     }
 
     protected String string_Network_Communication_Error_Message() {
-        return get_string(R.string.network_communication_error_message);
+        return get_string(R.string.g_network_communication_error_message);
     }
 
     private String[] _http_error_message(HttpIOException e) {
@@ -292,11 +292,11 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_Out_Of_Memory_Error_Title() {
-        return get_string(R.string.system_failure_out_of_memory_title);
+        return get_string(R.string.g_system_failure_out_of_memory_title);
     }
 
     protected String string_Out_Of_Memory_Error_Message() {
-        return get_string(R.string.system_failure_out_of_memory_message);
+        return get_string(R.string.g_system_failure_out_of_memory_message);
     }
 
     protected String string_code_Out_Of_Memory() {
@@ -304,11 +304,11 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_Defect_Title() {
-        return get_string(R.string.error_defect_title);
+        return get_string(R.string.g_error_defect_title);
     }
 
     protected String string_Defect_Message() {
-        return get_string(R.string.error_defect_message);
+        return get_string(R.string.g_error_defect_message);
     }
 
     protected String string_code_Defect() {
@@ -329,11 +329,11 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_defect_title() {
-        return get_string(R.string.application_defect_title);
+        return get_string(R.string.g_application_defect_title);
     }
 
     protected String string_defect_message() {
-        return get_string(R.string.application_defect_message);
+        return get_string(R.string.g_application_defect_message);
     }
 
     protected String string_code_defect() {
@@ -361,11 +361,11 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_External_Storage_Unavailable_Title() {
-        return get_string(R.string.system_storage_unavailable_title);
+        return get_string(R.string.g_system_storage_unavailable_title);
     }
 
     protected String string_External_Storage_Unavailable_Message() {
-        return get_string(R.string.system_storage_unavailable_message);
+        return get_string(R.string.g_system_storage_unavailable_message);
     }
 
     protected String string_code_External_Storage_Unavailable() {
@@ -394,11 +394,11 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_Not_Reach_Title() {
-        return get_string(R.string.defect_not_reach_title);
+        return get_string(R.string.g_defect_not_reach_title);
     }
 
     protected String string_Not_Reach_Message() {
-        return get_string(R.string.defect_not_reach_message);
+        return get_string(R.string.g_defect_not_reach_message);
     }
 
     protected String string_code_Not_Reach() {
@@ -416,11 +416,11 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_System_Action_View_Title() {
-        return get_string(R.string.system_action_view_title);
+        return get_string(R.string.g_system_action_view_title);
     }
 
     protected String string_System_Action_View_Message() {
-        return get_string(R.string.system_action_view_message);
+        return get_string(R.string.g_system_action_view_message);
     }
 
     protected String string_code_System_Action_View() {
@@ -438,11 +438,11 @@ public class GErrorModel<C extends GContext> {
     }
 
     protected String string_System_Phone_Call_Title() {
-        return get_string(R.string.system_phone_call_title);
+        return get_string(R.string.g_system_phone_call_title);
     }
 
     protected String string_System_Phone_Call_Message() {
-        return get_string(R.string.system_phone_call_message);
+        return get_string(R.string.g_system_phone_call_message);
     }
 
     protected String string_code_System_Phone_Call() {

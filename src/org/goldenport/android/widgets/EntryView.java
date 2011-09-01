@@ -8,16 +8,21 @@ import org.goldenport.android.feed.GACategory;
 import org.goldenport.android.feed.GAContent;
 import org.goldenport.android.feed.GADateTime;
 import org.goldenport.android.feed.GAEntry;
+import org.goldenport.android.feed.GAFeed;
+import org.goldenport.android.feed.GALink;
+import org.goldenport.android.feed.GAPerson;
 import org.goldenport.android.feed.GAText;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.TextView;
 
 /**
  * @since   Jun.  7, 2011
- * @version Aug. 27, 2011
+ * @version Aug. 28, 2011
  * @author  ASAMI, Tomoharu
  */
 public class EntryView extends GView {
@@ -35,7 +40,7 @@ public class EntryView extends GView {
     protected TextView source;
     protected TextView content_text;
     protected BitmapView link_image;
-    protected TextView link_geo;
+    protected TextView ext_geo;
 
     public EntryView(Context context) {
         this(context, null);
@@ -56,7 +61,7 @@ public class EntryView extends GView {
         source = (TextView)findViewById(R.id.g_entry_source);
         content_text = (TextView)findViewById(R.id.g_entry_content_text);
         link_image = (BitmapView)findViewById(R.id.g_entry_link_image);
-        link_geo = (TextView)findViewById(R.id.g_entry_link_geo);
+        ext_geo = (TextView)findViewById(R.id.g_entry_link_geo);
     }
 
     @Override
@@ -69,66 +74,102 @@ public class EntryView extends GView {
         if (id != null) {
             if (entry.id != null) {
                 id.setText(format_Id(entry.id));
+            } else {
+                id.setVisibility(View.GONE);
             }
         }
         if (title != null) {
             if (entry.title != null) {
                 title.setText(format_Title(entry.title));
+            } else {
+                title.setVisibility(View.GONE);
             }
         }
         if (summary != null) {
             if (entry.summary != null) {
                 summary.setText(format_Summary(entry.summary));
+            } else {
+                summary.setVisibility(View.GONE);
             }
         }
         if (published != null) {
             if (entry.published != null) {
                 published.setText(format_Published(entry.published));
+            } else {
+                published.setVisibility(View.GONE);
             }
         }
         if (updated != null) {
             if (entry.updated != null) {
                 updated.setText(format_Updated(entry.updated));
+            } else {
+                updated.setVisibility(View.GONE);
             }
         }
         if (categories != null) {
             if (entry.categories != null) {
-                updated.setText(format_Categories(entry.categories));
+                categories.setText(format_Categories(entry.categories));
+            } else {
+                categories.setVisibility(View.GONE);
             }
         }
         if (links != null) {
-            // TODO
+            if (entry.links != null) {
+                links.setText(format_Links(entry.links));
+            } else {
+                links.setVisibility(View.GONE);
+            }
         }
         if (authors != null) {
-            // TODO
-            
+            if (entry.authors != null) {
+                authors.setText(format_Authors(entry.authors));
+            } else {
+                authors.setVisibility(View.GONE);
+            }
         }
         if (contributors != null) {
-            // TODO
-            
+            if (entry.contributors != null) {
+                contributors.setText(format_Contributors(entry.contributors));
+            } else {
+                contributors.setVisibility(View.GONE);
+            }
         }
         if (rights != null) {
-            // TODO
-            
+            if (entry.rights != null) {
+                rights.setText(format_Rights(entry.rights));
+            } else {
+                rights.setVisibility(View.GONE);
+            }
         }
         if (source != null) {
-            // TODO
-            
+            if (entry.source != null) {
+                source.setText(format_Source(entry.source));
+            } else {
+                source.setVisibility(View.GONE);
+            }
         }
         if (content_text != null) {
             if (entry.content != null) {
-                updated.setText(format_Content_Text(entry.content));
+                content_text.setText(format_Content_Text(entry.content));
+            } else {
+                content_text.setVisibility(View.GONE);
             }
         }
         if (link_image != null) {
             Uri image = entry.getLinkImage();
             if (image != null) {
-                updated.setText(format_Link_Image(image));
+                link_image.setImage(format_Link_Image(image));
+            } else {
+                link_image.setVisibility(View.GONE);
             }
         }
-        if (link_geo != null) {
-            // TODO
-            
+        if (ext_geo != null) {
+            Location loc = entry.getExtGeo();
+            if (loc != null) {
+                ext_geo.setText(format_Link_Geo(loc));
+            } else {
+                ext_geo.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -160,7 +201,45 @@ public class EntryView extends GView {
         return content.toString();
     }
 
-    protected CharSequence format_Link_Image(Uri image) {
-        return image.toString();
+    protected CharSequence format_Links(List<GALink> links) {
+        return _to_string(links);
+    }
+
+    protected CharSequence format_Authors(List<GAPerson> authors) {
+        return _to_string(authors);
+    }
+
+    protected CharSequence format_Contributors(List<GAPerson> contributors) {
+        return _to_string(contributors);
+    }
+
+    protected CharSequence format_Rights(GAText rights) {
+        return rights.text;
+    }
+
+    protected CharSequence format_Source(GAFeed source) {
+        return source.toString();
+    }
+
+    protected Uri format_Link_Image(Uri uri) {
+        return uri;
+    }
+
+    protected CharSequence format_Link_Geo(Location loc) {
+        return loc.toString();
+    }
+
+    private CharSequence _to_string(List<?> list) {
+        boolean first = true;
+        StringBuilder buf = new StringBuilder();
+        for (Object elem: list) {
+            if (first) {
+                first = false;
+            } else {
+                buf.append(", ");
+            }
+            buf.append(elem.toString());
+        }
+        return buf;
     }
 }

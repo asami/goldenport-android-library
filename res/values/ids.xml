@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item type="id" name="g_list_panel" />
+  <item type="id" name="g_list_empty" />
+  <item type="id" name="g_list" />
+  <item type="id" name="g_progress_panel" />
+  <item type="id" name="g_progressbar" />
+
+  <item type="id" name="g_entry_id" />
+  <item type="id" name="g_entry_title" />
+  <item type="id" name="g_entry_summary" />
+  <item type="id" name="g_entry_published" />
+  <item type="id" name="g_entry_updated" />
+  <item type="id" name="g_entry_categories" />
+  <item type="id" name="g_entry_links" />
+  <item type="id" name="g_entry_authors" />
+  <item type="id" name="g_entry_contributors" />
+  <item type="id" name="g_entry_rights" />
+  <item type="id" name="g_entry_source" />
+  <item type="id" name="g_entry_text" />
+  <item type="id" name="g_entry_content_text" />
+  <item type="id" name="g_entry_link_image" />
+  <item type="id" name="g_entry_link_geo" />
+</resources>

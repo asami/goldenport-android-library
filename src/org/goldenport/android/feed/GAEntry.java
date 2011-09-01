@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import android.content.ContentValues;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -14,7 +15,7 @@ import android.os.Parcelable;
 
 /*
  * @since   Jun.  4, 2011
- * @version Aug. 26, 2011
+ * @version Aug. 29, 2011
  * @author  ASAMI, Tomoharu
  */
 public class GAEntry implements Parcelable {
@@ -66,7 +67,7 @@ public class GAEntry implements Parcelable {
 
     private <T extends List<?>> T to_list(List<?> list) {
         if (list == null) {
-            return (T)Collections.emptyList();
+            return null;
         } else {
             return (T)Collections.unmodifiableList(list);
         }
@@ -74,7 +75,7 @@ public class GAEntry implements Parcelable {
 
     private Map<String, Object> to_map(Map<String, Object> map) {
         if (map == null) {
-            return Collections.emptyMap();
+            return null;
         } else {
             return Collections.unmodifiableMap(map);
         }
@@ -167,9 +168,8 @@ public class GAEntry implements Parcelable {
     }
 
     // twitter:geo    
-    public String getExtGeo() {
-        throw new UnsupportedOperationException();
-        
+    public Location getExtGeo() {
+        return null;
     }
 
     // twitter:metadata    
