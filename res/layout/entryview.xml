@@ -66,6 +66,10 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    />
+  <WebView android:id="@+id/g_entry_content_html"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    />
   <TextView android:id="@+id/g_entry_link_geo"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"

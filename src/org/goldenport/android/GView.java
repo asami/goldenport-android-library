@@ -9,11 +9,11 @@ import com.google.inject.Singleton;
 
 /**
  * @since   Jun.  7, 2011
- * @version Jun. 13, 2011
+ * @version Sep.  3, 2011
  * @author  ASAMI, Tomoharu
  */
 @Singleton
-public abstract class GView extends FrameLayout {
+public abstract class GView extends FrameLayout implements GConstants {
     protected final LayoutInflater inflator;
 
     protected GView(Context context) {
@@ -24,12 +24,12 @@ public abstract class GView extends FrameLayout {
         super(context, attrs);
         inflator = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int lid = get_Layout_Id();
-        if (lid != -1) {
+        if (lid != INVALID_LAYOUT_ID) {
             addView(inflator.inflate(lid, null));
         }
     }
 
     protected int get_Layout_Id() {
-        return -1;
+        return INVALID_LAYOUT_ID;
     }
 }

@@ -3,6 +3,7 @@ package org.goldenport.android.widgets;
 import java.io.IOException;
 import java.util.List;
 
+import org.goldenport.android.GConstants;
 import org.goldenport.android.GContext;
 import org.goldenport.android.GModel;
 import org.goldenport.android.models.BeanSequenceRepository;
@@ -19,11 +20,11 @@ import android.widget.TextView;
 
 /**
  * @since   May.  2, 2011
- * @version Aug. 26, 2011
+ * @version Sep.  3, 2011
  * @author  ASAMI, Tomoharu
  */
 // XXX most functionality should move BeanSequenceAdapter.
-public abstract class GBaseAdapter<T> extends BaseAdapter {
+public abstract class GBaseAdapter<T> extends BaseAdapter implements GConstants {
     protected final Context context;
     protected Throwable _exception;
     protected IGBaseAdapterListener adapter_listener;

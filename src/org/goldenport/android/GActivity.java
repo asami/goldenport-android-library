@@ -58,6 +58,7 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
         }
     }
 
+    // XXX def_layout_id()
     protected int get_Layout_id() {
         return INVALID_LAYOUT_ID;
     }

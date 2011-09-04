@@ -12,17 +12,20 @@ import org.goldenport.android.feed.GAFeed;
 import org.goldenport.android.feed.GALink;
 import org.goldenport.android.feed.GAPerson;
 import org.goldenport.android.feed.GAText;
+import org.goldenport.android.feed.TextContent;
+import org.goldenport.android.feed.TextType;
 
 import android.content.Context;
 import android.location.Location;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 /**
  * @since   Jun.  7, 2011
- * @version Aug. 28, 2011
+ * @version Sep.  4, 2011
  * @author  ASAMI, Tomoharu
  */
 public class EntryView extends GView {
@@ -39,6 +42,7 @@ public class EntryView extends GView {
     protected TextView rights;
     protected TextView source;
     protected TextView content_text;
+    protected WebView content_html;
     protected BitmapView link_image;
     protected TextView ext_geo;
 
@@ -60,6 +64,7 @@ public class EntryView extends GView {
         rights = (TextView)findViewById(R.id.g_entry_rights);
         source = (TextView)findViewById(R.id.g_entry_source);
         content_text = (TextView)findViewById(R.id.g_entry_content_text);
+        content_html = (WebView)findViewById(R.id.g_entry_content_html);
         link_image = (BitmapView)findViewById(R.id.g_entry_link_image);
         ext_geo = (TextView)findViewById(R.id.g_entry_link_geo);
     }
@@ -148,11 +153,28 @@ public class EntryView extends GView {
                 source.setVisibility(View.GONE);
             }
         }
-        if (content_text != null) {
+        if (content_text != null && content_html != null) {
+            if (entry.content != null) {
+                if (_is_html(entry.content)) {
+                    _set_html(entry);
+                } else {
+                    content_text.setText(format_Content_Text(entry.content));
+                }
+            } else {
+                content_text.setVisibility(View.GONE);
+                content_html.setVisibility(View.GONE);
+            }
+        } else if (content_text != null && content_html == null) {
             if (entry.content != null) {
                 content_text.setText(format_Content_Text(entry.content));
             } else {
                 content_text.setVisibility(View.GONE);
+            }
+        } else if (content_text == null && content_html != null) { 
+            if (entry.content != null) {
+                _set_html(entry);
+            } else {
+                content_html.setVisibility(View.GONE);
             }
         }
         if (link_image != null) {
@@ -171,6 +193,18 @@ public class EntryView extends GView {
                 ext_geo.setVisibility(View.GONE);
             }
         }
+    }
+
+    private boolean _is_html(GAContent content) {
+        if (!(content instanceof TextContent)) {
+            return false;
+        }
+        TextContent tc = (TextContent)content;
+        return tc.type == TextType.html || tc.type == TextType.xhtml;
+    }
+
+    private void _set_html(GAEntry entry) {
+        content_html.loadData(format_Content_Html(entry.content), "text/html", "utf-8");
     }
 
     protected CharSequence format_Id(String id) {
@@ -198,6 +232,10 @@ public class EntryView extends GView {
     }
 
     protected CharSequence format_Content_Text(GAContent content) {
+        return content.toString();
+    }
+
+    private String format_Content_Html(GAContent content) {
         return content.toString();
     }
 

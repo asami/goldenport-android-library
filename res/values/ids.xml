@@ -19,6 +19,7 @@
   <item type="id" name="g_entry_source" />
   <item type="id" name="g_entry_text" />
   <item type="id" name="g_entry_content_text" />
+  <item type="id" name="g_entry_content_html" />
   <item type="id" name="g_entry_link_image" />
   <item type="id" name="g_entry_link_geo" />
 </resources>
