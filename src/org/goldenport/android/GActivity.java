@@ -1,5 +1,6 @@
 package org.goldenport.android;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -8,16 +9,16 @@ import org.goldenport.android.util.GAsyncTask;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ListAdapter;
 
 /**
  * @since   Apr. 28, 2011
- * @version Aug. 30, 2011
+ * @version Sep. 10 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activity implements IGActivity, GConstants {
@@ -112,6 +113,8 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
                 _inject_colorStateList(f);
             } else if (f.isAnnotationPresent(IntentExtra.class)) {
                 _inject_extra(f);
+            } else if (f.isAnnotationPresent(InstanceState.class)) {
+                _inject_instance_state(f);
             }
         }
     }
@@ -216,11 +219,17 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
         }
     }
 
+    private void _inject_instance_state(Field f) {
+        // do nothing
+    }
+
     private Object _convert(Class<?> type, String string) {
         if (type == boolean.class) {
             return Boolean.parseBoolean(string);
         } else if (type == byte.class) {
             return Byte.parseByte(string);
+        } else if (type == char.class) {
+            return string.charAt(0);
         } else if (type == short.class) {
             return Short.parseShort(string);
         } else if (type == int.class) {
@@ -235,6 +244,8 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
             return Boolean.parseBoolean(string);
         } else if (type == Byte.class) {
             return Byte.parseByte(string);
+        } else if (type == Character.class) {
+            return string.charAt(0);
         } else if (type == Short.class) {
             return Short.parseShort(string);
         } else if (type == Integer.class) {
@@ -319,17 +330,117 @@ public abstract class GActivity<C extends GController<?, ?, ?, ?>> extends Activ
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        for (GActivityTrait trait: _traits) {
-            trait.onSaveInstanceState(outState);
+        try {
+            super.onSaveInstanceState(outState);
+            for (Field f : getClass().getDeclaredFields()) {
+                if (f.isAnnotationPresent(LayoutView.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(ResourceString.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(ResourceDrawable.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(ResourceColor.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(ResourceColorStateList.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(IntentExtra.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(InstanceState.class)) {
+                    _save_instance(f, outState);
+                }
+            }
+            for (GActivityTrait trait : _traits) {
+                trait.onSaveInstanceState(outState);
+            }
+        } catch (Throwable e) {
+            gcontroller.applicationFailure(this, e);
+        }
+    }
+
+    private void _save_instance(Field f, Bundle outState) throws IllegalArgumentException, IllegalAccessException {
+        Class<?> type = f.getType();
+        String key = f.getName();
+        if (type == boolean.class) {
+            outState.putBoolean(key, f.getBoolean(this)); 
+        } else if (type == byte.class) {
+            outState.putByte(key, f.getByte(this)); 
+        } else if (type == char.class) {
+            outState.putChar(key, f.getChar(this)); 
+        } else if (type == short.class) {
+            outState.putShort(key, f.getShort(this)); 
+        } else if (type == int.class) {
+            outState.putInt(key, f.getInt(this)); 
+        } else if (type == long.class) {
+            outState.putLong(key, f.getLong(this)); 
+        } else if (type == float.class) {
+            outState.putFloat(key, f.getFloat(this)); 
+        } else if (type == double.class) {
+            outState.putDouble(key, f.getDouble(this));
+        // else if arrays, list 
+        } else if (Parcelable.class.isAssignableFrom(type)) {
+            outState.putSerializable(key, (Serializable)f.get(this));
+        } else if (Serializable.class.isAssignableFrom(type)) {
+            outState.putParcelable(key, (Parcelable)f.get(this));
+        } else {
+            throw new RuntimeException("type can't be contained in Bundle:" + type);
         }
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        for (GActivityTrait trait: _traits) {
-            trait.onRestoreInstanceState(savedInstanceState);
+        try {
+            super.onRestoreInstanceState(savedInstanceState);
+            for (Field f : getClass().getDeclaredFields()) {
+                if (f.isAnnotationPresent(LayoutView.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(ResourceString.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(ResourceDrawable.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(ResourceColor.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(ResourceColorStateList.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(IntentExtra.class)) {
+                    // do nothing
+                } else if (f.isAnnotationPresent(InstanceState.class)) {
+                    _restore_instance(f, savedInstanceState);
+                }
+            }
+            for (GActivityTrait trait : _traits) {
+                trait.onRestoreInstanceState(savedInstanceState);
+            }
+        } catch (Throwable e) {
+            gcontroller.applicationFailure(this, e);
+        }
+    }
+
+    private void _restore_instance(Field f, Bundle savedInstanceState) throws IllegalArgumentException, IllegalAccessException {
+        Class<?> type = f.getType();
+        String key = f.getName();
+        if (type == boolean.class) {
+            f.setBoolean(this, savedInstanceState.getBoolean(key));
+        } else if (type == byte.class) {
+            f.setByte(this, savedInstanceState.getByte(key));
+        } else if (type == char.class) {
+            f.setChar(this, savedInstanceState.getChar(key));
+        } else if (type == short.class) {
+            f.setShort(this, savedInstanceState.getShort(key));
+        } else if (type == int.class) {
+            f.setInt(this, savedInstanceState.getInt(key));
+        } else if (type == long.class) {
+            f.setLong(this, savedInstanceState.getLong(key));
+        } else if (type == float.class) {
+            f.setFloat(this, savedInstanceState.getFloat(key));
+        } else if (type == double.class) {
+            f.setDouble(this, savedInstanceState.getDouble(key));
+        // else if arrays, list 
+        } else if (Parcelable.class.isAssignableFrom(type)) {
+            f.set(this, savedInstanceState.getParcelable(key));
+        } else if (Serializable.class.isAssignableFrom(type)) {
+            f.set(this, savedInstanceState.getSerializable(key));
+        } else {
+            throw new RuntimeException("type can't be contained in Bundle:" + type);
         }
     }
 

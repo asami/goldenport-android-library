@@ -1,13 +1,15 @@
 package org.goldenport.android;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 /**
  * @since   Apr. 29, 2011
- * @version May.  7, 2011
+ * @version Sep. 10, 2011
  * @author  ASAMI, Tomoharu
  */
 public abstract class GController<C extends GContext, E extends GErrorModel<C>, M extends GModel<C, E>, A extends GAgent<C, E, M>>
@@ -44,5 +46,13 @@ public abstract class GController<C extends GContext, E extends GErrorModel<C>, 
         if (gagent == null) {
             gagent = (A)injector.getInstance(GAgent.class);
         }
+    }
+
+    void applicationFailure(Activity activity, Throwable e) {
+        gcontext.logError(activity.getClass().getName() + ":applicationFailure", e);
+        GIOException ee = gerrors.applicationFailure(e);
+        Intent intent = new Intent(INTENT_ACTION_EXCEPTION);
+        intent.putExtra(INTENT_EXTRA_EXCEPTION, e.getMessage()); // XXX
+        activity.startActivityForResult(intent, START_EXCEPTION);
     }
 }

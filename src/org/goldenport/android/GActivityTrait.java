@@ -8,10 +8,10 @@ import android.widget.ListAdapter;
 
 /**
  * @since   Apr. 28, 2011
- * @version Aug. 14, 2011
+ * @version Sep. 10, 2011
  * @author  ASAMI, Tomoharu
  */
-public abstract class GActivityTrait {
+public abstract class GActivityTrait implements GConstants {
     protected Activity activity;
     protected IGActivity gactivity;
 
